@@ -1,0 +1,21 @@
+{
+  "name": "workable",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "test": "vitest run",
+    "intents": "tsx scripts/intents.ts",
+    "buy": "tsx scripts/first-purchase.ts",
+    "decide": "tsx scripts/decide.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  }
+}
