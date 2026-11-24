@@ -6,7 +6,9 @@ import { CONFIG_VERSION, RULES, SOILS } from "../packages/engine/src/index.ts";
 import { listDecisions, reproduce } from "../packages/engine/src/store.ts";
 import { stats } from "./lib/stats.ts";
 
-rmSync("dist", { recursive: true, force: true });
+// Empty dist/ rather than deleting it (Windows refuses to remove a folder that is some process's cwd).
+mkdirSync("dist", { recursive: true });
+for (const f of readdirSync("dist")) if (f !== ".vercel") rmSync(`dist/${f}`, { recursive: true, force: true });
 cpSync("apps/web/public", "dist", { recursive: true });
 mkdirSync("dist/data/decision", { recursive: true });
 await build({ entryPoints: ["scripts/browser-entry.ts"], bundle: true, format: "iife", globalName: "Workable", outfile: "dist/engine.js", minify: true, platform: "browser" });

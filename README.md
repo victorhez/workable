@@ -6,13 +6,15 @@ Workable is an agent for rain-dependent site work: when to plant, when to work o
 
 Built for Telegraph Hackathon Season II, Apps & Agents track, **Mission 06: Resources and Agriculture**. This entry is competing for hackathon prizes.
 
+**Live demo: https://workable-telegraph.vercel.app** (no funds needed; replays real Telegraph purchases)
+
 > Status: testnet, early sample, soil parameters are placeholders pending review. Not agronomic advice.
 
 ## Do X, see Y
 
 | Do | See |
 |---|---|
-| Open the hosted demo (no funds) and press **Decide** | A decision card with verdict, reasons, what would change it, the soil-water chart, cost and Telegraph receipts (recorded real purchases) |
+| Open https://workable-telegraph.vercel.app (no funds) and press **Decide** | A decision card with verdict, reasons, what would change it, the soil-water chart, cost and Telegraph receipts (recorded real purchases) |
 | `npm install` then `npm test` | 19 tests pass: soil-bucket invariants, every decision rule, the window-to-daily maths, answer parsing on real receipts, scoreboard maths |
 | `npm run decide -- "Ibadan, Nigeria" field_work sandy_loam demo` | The same decision in the terminal, with a decision ID |
 | `npm run reproduce -- <decision-id>` (or `-- --all`) | `IDENTICAL`: the engine re-runs from stored inputs and gives the same decision |

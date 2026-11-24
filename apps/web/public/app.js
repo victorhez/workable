@@ -26,7 +26,8 @@ const I = {
 
 let SERVER = null;
 async function detect() {
-  try { const r = await fetch("api/health"); if (r.ok) { const j = await r.json(); if (j.server) SERVER = j; } } catch {}
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (local) try { const r = await fetch("api/health"); if (r.ok) { const j = await r.json(); if (j.server) SERVER = j; } } catch {}
   const pill = $("#netpill");
   if (SERVER?.live) { pill.textContent = "● Live purchasing on"; pill.className = "netpill live"; }
   else { pill.textContent = "● Demo: recorded receipts"; pill.className = "netpill demo"; }

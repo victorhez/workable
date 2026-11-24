@@ -20,13 +20,13 @@ Fill the bracketed items before posting. Check the rules page for the exact form
 >
 > Finding for the network: WEATHER_FORECAST_GENERAL has no rainfall-amount field; soil decisions need mm. [link to bounties issue]
 >
-> Demo: [URL] · Hackathon entry with prizes. @Telegraphprotoc
+> Demo: https://workable-telegraph.vercel.app · Hackathon entry with prizes. @Telegraphprotoc
 
 ### Update 3 (Nov 30)
 
 > Workable is submitted to @Telegraphprotoc Season II. Scoreboard: [X/Y] decisions correct against observed weather, cost per correct decision $[Z], error by horizon published, sample size stated. Tutorial: "Buy a weather forecast with Telegraph in 10 minutes". Limits: placeholder soil parameters, small sample, testnet.
 >
-> [demo URL] [repo URL] · Hackathon entry with prizes.
+> https://workable-telegraph.vercel.app [repo URL] · Hackathon entry with prizes.
 
 ## Demo video script (3–4 minutes)
 
