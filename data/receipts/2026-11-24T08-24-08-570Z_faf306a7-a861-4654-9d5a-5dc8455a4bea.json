@@ -1,0 +1,44 @@
+{
+  "id": "faf306a7-a861-4654-9d5a-5dc8455a4bea",
+  "time": "2026-11-24T08:24:08.570Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Kano, Nigeria",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "amanat-weather-risk",
+      "name": "Amanat Weather Risk",
+      "rank": 1,
+      "receiptHash": "0x0d02062b2cee5f68343a322ed5adcaf232fd678412f007b6b601cf01b39b5dd6"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "8ecbac5f9560eff830bb9592011da47ae9e4e06f77235a997eb0007d9f166384",
+  "response": {
+    "status": "complete",
+    "answer": "The current weather in Kano, Kano State, Nigeria is 24.5 °C, with partly cloudy conditions, 25% humidity, and wind at 7.6 km/h from the north-east. There is no precipitation, and the storm risk is low (0.204).  \n\nToday's forecast: high of 33.7 °C, low of 19.9 °C, overcast, 0% chance of rain.  \nTomorrow: similar conditions, high of 34 °C, low of 20 °C, overcast, 0% chance of rain.  \n\nData source: Open-Meteo (CC BY 4.0), provided by Amanat Weather Risk.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "amanat-weather-risk",
+          "name": "Amanat Weather Risk",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0x0d02062b2cee5f68343a322ed5adcaf232fd678412f007b6b601cf01b39b5dd6"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "cc77d0e5-8c39-4dfb-98d1-c729ffc255e3",
+    "job_id": "adb3491a-cac2-40a3-afaf-2057b1068b0b"
+  }
+}

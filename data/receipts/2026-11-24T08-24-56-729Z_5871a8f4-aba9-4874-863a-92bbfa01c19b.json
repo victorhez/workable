@@ -1,0 +1,44 @@
+{
+  "id": "5871a8f4-aba9-4874-863a-92bbfa01c19b",
+  "time": "2026-11-24T08:24:56.729Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Nairobi, Kenya",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "amanat-weather-risk",
+      "name": "Amanat Weather Risk",
+      "rank": 1,
+      "receiptHash": "0xcdc8c921b9406d81d06a52218f2b6fae7a1c52367bff90f819169e0bfd48ab70"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "42ef42378ac02dd69836f7be216622efbdf53798442d909f8b70e12766771999",
+  "response": {
+    "status": "complete",
+    "answer": "The weather forecast for Nairobi, Nairobi County, Kenya on 2026-11-24 at 08:00Z is as follows:\n\n- **Temperature**: Current 22.1°C, feels like 23.6°C. Today's high is 24.3°C and low is 16.2°C.\n- **Condition**: Light drizzle with 21% cloud cover.\n- **Precipitation**: 0.1 mm expected, 64% probability of rain.\n- **Wind**: Speed of 12.3 km/h, gusts up to 31 km/h.\n- **Humidity**: 67%.\n- **Dew point**: 15.7°C.\n\nNo storm risk or cyclone activity is detected. The overall risk level is low at 0.344.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "amanat-weather-risk",
+          "name": "Amanat Weather Risk",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0xcdc8c921b9406d81d06a52218f2b6fae7a1c52367bff90f819169e0bfd48ab70"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "2b4cb3b6-16d0-4601-acb5-efa3ada3f249",
+    "job_id": "feed0d65-fb93-4df6-8e4e-990796c9e7dd"
+  }
+}
