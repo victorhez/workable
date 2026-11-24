@@ -26,7 +26,7 @@ Fill the bracketed items before posting. Check the rules page for the exact form
 
 > Workable is submitted to @Telegraphprotoc Season II. Scoreboard: [X/Y] decisions correct against observed weather, cost per correct decision $[Z], error by horizon published, sample size stated. Tutorial: "Buy a weather forecast with Telegraph in 10 minutes". Limits: placeholder soil parameters, small sample, testnet.
 >
-> https://workable-telegraph.vercel.app [repo URL] · Hackathon entry with prizes.
+> https://workable-telegraph.vercel.app https://github.com/victorhez/workable · Hackathon entry with prizes.
 
 ## Demo video script (3–4 minutes)
 
