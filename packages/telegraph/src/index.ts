@@ -78,7 +78,8 @@ export class TelegraphClient {
       id: randomUUID(),
       time: new Date().toISOString(),
       tool, intent, params,
-      miner: response.miner ?? miner ?? null,
+      // Key mode returns the miner and on-chain receipt hash inside sources[].
+      miner: response.miner ?? (response as any).sources?.map((s: any) => ({ ...s.miner, receiptHash: s.receiptHash })) ?? miner ?? null,
       cost_usd: typeof response.cost_usd === "number" ? response.cost_usd : null,
       payment: response.payment ?? null,
       response_sha256: createHash("sha256").update(JSON.stringify(response)).digest("hex"),
