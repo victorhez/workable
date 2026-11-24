@@ -1,0 +1,44 @@
+{
+  "id": "e1c58f6d-74bf-4f7a-844c-059d21e53549",
+  "time": "2026-11-24T03:17:05.120Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Mendoza, Argentina",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "preflight-ssl-verification",
+      "name": "PREFLIGHT Infrastructure Signals",
+      "rank": 1,
+      "receiptHash": "0xdb02e002c3e0e27491dc18394313381f660086e39d8aae0584df3d3f8aacf787"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "78e9a9945253b90fce72241853b3d420491db937d689a84e717165aa81344b90",
+  "response": {
+    "status": "complete",
+    "answer": "The current weather in Mendoza, Mendoza, Argentina is 19.2 °C with clear skies, as of 2026-11-24T03:15Z (source: Open-Meteo). MET Norway reports 20.3 °C and NOAA METAR (8.1 km away) reports 21 °C.\n\nOver the next 120 hours (from 2026-11-24T03:00Z to 2026-11-29T02:00Z), the forecast is:\n- Condition: clear sky\n- Maximum temperature: 32.4 °C\n- Minimum temperature: 15.1 °C\n- Precipitation probability: 67%\n- Total precipitation: 8.1 mm\n- Peak wind: 18.7 km/h, with gusts up to 44.3 km/h\n- Storm risk: LOW (risk score: 0.159)\n\nSources: Open-Meteo, MET Norway Locationforecast, NOAA METAR.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "preflight-ssl-verification",
+          "name": "PREFLIGHT Infrastructure Signals",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0xdb02e002c3e0e27491dc18394313381f660086e39d8aae0584df3d3f8aacf787"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "5d067751-0788-4129-a6bb-9296e49df834",
+    "job_id": "aaf92d37-cd66-424b-b418-ec72f1ca929a"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "location": "Mendoza, Argentina",
+  "bought_at": "2026-11-24T07:50:37.108Z",
+  "windows": [
+    {
+      "window_hours": 24,
+      "receipt_id": "8eafeaad-2e7b-408c-985c-628f33e49c9c",
+      "cost_usd": 0.01,
+      "parsed": {
+        "temp_max_c": 23.9,
+        "temp_min_c": 16.1,
+        "pop_pct": 19,
+        "rain_mm": null,
+        "condition": "expected to have slight rain showers",
+        "from_text": [
+          "temp_max_c",
+          "temp_min_c",
+          "pop_pct",
+          "condition"
+        ],
+        "sources": [],
+        "text": "The current weather in Mendoza, Mendoza, Argentina is light drizzle with a temperature of 17.4°C, wind speed of 8.1 km/h, and a 19% chance of precipitation. The storm risk is low at 0.24, with no breach or cyclone activity detected.\n\nToday's forecast (2026-11-24) shows a high of 23.9°C and a low of 16.1°C, with 97% cloud cover and a dew point of 10°C. Tomorrow (2026-11-25) is expected to have slight rain showers, with a high of 26.8°C and a low of 15.9°C, and a 59% chance of precipitation.\n\nData source: Open-Meteo, licensed under CC BY 4.0."
+      },
+      "miner_label": "Amanat Weather Risk, rank 1",
+      "receipt_hash": "0xce7ecdeebf9db63813504fc65a3de9a36aa286c220d020b0ebcceb57d1390cfc"
+    },
+    {
+      "window_hours": 48,
+      "receipt_id": "a9c1d389-2f7e-4b31-8ab4-254449793672",
+      "cost_usd": 0.01,
+      "parsed": {
+        "temp_max_c": 26.8,
+        "temp_min_c": 15.9,
+        "pop_pct": 19,
+        "rain_mm": 0.1,
+        "condition": "for slight rain showers",
+        "from_text": [
+          "temp_max_c",
+          "temp_min_c",
+          "pop_pct",
+          "rain_mm",
+          "condition"
+        ],
+        "sources": [
+          "Amanat Weather Risk",
+          "based on Open-Meteo data"
+        ],
+        "text": "The current weather in Mendoza, Mendoza, Argentina is light drizzle with a temperature of 17.4°C, wind speed of 8.1 km/h, and a gust of 21.6 km/h. The precipitation amount is 0.1 mm, and the storm risk is low at 0.24. There is no cyclone activity within 0 km.\n\nToday, November 24, 2026, the high will be 23.9°C and the low will be 16.1°C, with a 19% chance of precipitation. Tomorrow, November 25, 2026, the forecast is for slight rain showers, with a high of 26.8°C and a low of 15.9°C, and a 59% chance of precipitation.\n\nSource: Amanat Weather Risk, based on Open-Meteo data."
+      },
+      "miner_label": "Amanat Weather Risk, rank 1",
+      "receipt_hash": "0x53821f143e2f14614f674e48d4d416c63d3c47899dc7c37ae869988631a872a4"
+    },
+    {
+      "window_hours": 72,
+      "receipt_id": "1895d4c0-315b-4c43-9392-9c05a56c13d4",
+      "cost_usd": 0.01,
+      "parsed": {
+        "temp_max_c": 26.8,
+        "temp_min_c": 15.9,
+        "pop_pct": 19,
+        "rain_mm": 0.1,
+        "condition": "for slight rain showers",
+        "from_text": [
+          "temp_max_c",
+          "temp_min_c",
+          "pop_pct",
+          "rain_mm",
+          "condition"
+        ],
+        "sources": [
+          "Amanat Weather Risk",
+          "based on Open-Meteo data"
+        ],
+        "text": "The current weather in Mendoza, Mendoza, Argentina is light drizzle with a temperature of 17.4°C, wind speed of 8.1 km/h, and a gust of 21.6 km/h. The precipitation amount is 0.1 mm, and the storm risk is low at 0.24. There is no cyclone within 0 km.\n\nToday, November 24, 2026, the high will be 23.9°C and the low will be 16.1°C, with a 19% chance of precipitation. Tomorrow, November 25, 2026, the forecast is for slight rain showers, with a high of 26.8°C and a low of 15.9°C, and a 59% chance of precipitation.\n\nSource: Amanat Weather Risk, based on Open-Meteo data."
+      },
+      "miner_label": "Amanat Weather Risk, rank 1",
+      "receipt_hash": "0xf3718ed2866fdbc4abc8b8f01e1c6204833e82c1c4e077232419c5d78666959c"
+    },
+    {
+      "window_hours": 120,
+      "receipt_id": "da7a1e9d-7bf5-449e-8fde-f80ffec3260d",
+      "cost_usd": 0.01,
+      "parsed": {
+        "temp_max_c": 26.8,
+        "temp_min_c": 15.9,
+        "pop_pct": 19,
+        "rain_mm": null,
+        "condition": null,
+        "from_text": [
+          "temp_max_c",
+          "temp_min_c",
+          "pop_pct"
+        ],
+        "sources": [
+          "Amanat Weather Risk",
+          "based on Open-Meteo data"
+        ],
+        "text": "The current weather in Mendoza, Mendoza, Argentina is light drizzle with a temperature of 17.4°C, wind speed of 8.1 km/h, and a gust of 21.6 km/h. There is 0.1 mm of precipitation, and the storm risk is low at 0.24. The humidity is 62%, and it feels like 16.2°C.\n\nToday, November 24, 2026, the high will be 23.9°C and the low will be 16.1°C, with a 19% chance of precipitation.  \nTomorrow, November 25, 2026, expects a high of 26.8°C and a low of 15.9°C, with a 59% chance of slight rain showers.\n\nSource: Amanat Weather Risk, based on Open-Meteo data."
+      },
+      "miner_label": "Amanat Weather Risk, rank 1",
+      "receipt_hash": "0x8d2cec4d26f074f83bd953baa6cc7ac5ed0752fb74539c6492e72a65836212b5"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-11-24",
+      "rain_mm": null,
+      "pop_pct": 19,
+      "tmax_c": 23.9,
+      "tmin_c": 16.1,
+      "derived": "window 0-24h"
+    },
+    {
+      "date": "2026-11-25",
+      "rain_mm": null,
+      "pop_pct": 19,
+      "tmax_c": 26.8,
+      "tmin_c": 15.9,
+      "derived": "window 24-48h"
+    },
+    {
+      "date": "2026-11-26",
+      "rain_mm": 0,
+      "pop_pct": 19,
+      "tmax_c": 26.8,
+      "tmin_c": 15.9,
+      "derived": "window 48-72h"
+    },
+    {
+      "date": "2026-11-27",
+      "rain_mm": null,
+      "pop_pct": 19,
+      "tmax_c": 26.8,
+      "tmin_c": 15.9,
+      "derived": "window 72-120h spread evenly over 2 days"
+    },
+    {
+      "date": "2026-11-28",
+      "rain_mm": null,
+      "pop_pct": 19,
+      "tmax_c": 26.8,
+      "tmin_c": 15.9,
+      "derived": "window 72-120h spread evenly over 2 days"
+    }
+  ],
+  "cost_usd": 0.04,
+  "notes": [
+    "Rain for hours 72-120 was spread evenly over 2 days.",
+    "Some windows gave no rain amount; the engine estimates it from the rain probability."
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "id": "wk_ce282a262f",
+  "created_at": "2026-11-24T07:50:16.657Z",
+  "site": {
+    "location": "Ames, Iowa, USA"
+  },
+  "input": {
+    "activity": "field_work",
+    "soil": "clay_loam",
+    "initial_storage_frac": 1,
+    "failed_windows": 1,
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": null,
+        "pop_pct": 2,
+        "tmax_c": -0.3,
+        "tmin_c": -6.9
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": null,
+        "pop_pct": 2,
+        "tmax_c": -0.3,
+        "tmin_c": -6.9
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": -0.3,
+        "tmin_c": -6.9
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": null,
+        "tmin_c": null
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": null,
+        "tmin_c": null
+      }
+    ]
+  },
+  "decision": {
+    "verdict": "WAIT",
+    "wait_days": 2,
+    "reasons": [
+      "Soil is too wet now; it should be workable on 2026-11-26."
+    ],
+    "would_change": "Less rain or a drier start would bring this forward.",
+    "confidence": "low",
+    "days_to_workable": 2,
+    "path": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": 0.2,
+        "estimated": true,
+        "storage_mm": 61.2,
+        "workable": false
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": 0.2,
+        "estimated": true,
+        "storage_mm": 57.4,
+        "workable": false
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 53.4,
+        "workable": true
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 49.4,
+        "workable": true
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 45.4,
+        "workable": true
+      }
+    ],
+    "config_version": "0.1.0-placeholder",
+    "flags": [
+      "rain_mm_estimated_from_probability",
+      "failed_purchases"
+    ]
+  },
+  "forecast": {
+    "location": "Ames, Iowa, USA",
+    "bought_at": "2026-11-24T07:43:10.563Z",
+    "windows": [
+      {
+        "window_hours": 24,
+        "receipt_id": null,
+        "cost_usd": null,
+        "parsed": null,
+        "error": "MCP error -32001: Request timed out"
+      },
+      {
+        "window_hours": 48,
+        "receipt_id": "40ea41cb-b1eb-4799-8b00-35f2006f5751",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": -0.3,
+          "temp_min_c": -6.9,
+          "pop_pct": 2,
+          "rain_mm": null,
+          "condition": "overcast",
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "condition"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "data from Open-Meteo (CC BY 4.0)"
+          ],
+          "text": "The current weather in Ames, Iowa, United States is overcast with a temperature of -5.6°C, wind speed of 7.3 km/h, and no precipitation. The storm risk is low (risk: 0.2).  \n\nToday's forecast (2026-11-24) expects a high of -0.3°C and a low of -6.9°C, with a 2% chance of precipitation.  \nTomorrow (2026-11-25) will be slightly warmer, with a high of 2.6°C and a low of -0.9°C, and a 9% chance of precipitation.  \n\nSource: Amanat Weather Risk, data from Open-Meteo (CC BY 4.0)."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0xf24809459e2610acbcc16faa1f11499fad2fc5299fa740576daf27a6b216496b"
+      },
+      {
+        "window_hours": 72,
+        "receipt_id": "05baa637-cf70-48a2-931b-1c6fe1997c12",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": -0.3,
+          "temp_min_c": -6.9,
+          "pop_pct": 0,
+          "rain_mm": null,
+          "condition": "overcast",
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "condition"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "data from Open-Meteo"
+          ],
+          "text": "The current weather in Ames, Iowa, United States is overcast with a temperature of -5.6°C, wind speed of 7.3 km/h, and no precipitation. The storm risk is low (risk: 0.2).  \n\nToday (2026-11-24) will have a high of -0.3°C and a low of -6.9°C, with a 0% chance of precipitation.  \nTomorrow (2026-11-25) is expected to be slightly warmer, with a high of 2.6°C and a low of -0.9°C, and a 9% chance of precipitation.\n\nSource: Amanat Weather Risk, data from Open-Meteo."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0xbaa145e54af7c4908d6752a9e80b66c793b1c01764287414575ae21b7ac2a5cd"
+      },
+      {
+        "window_hours": 120,
+        "receipt_id": "2c203795-7ca4-4695-b69e-d1d53880242c",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": null,
+          "temp_min_c": null,
+          "pop_pct": 0,
+          "rain_mm": null,
+          "condition": "Overcast",
+          "from_text": [
+            "pop_pct",
+            "condition"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "data from Open-Meteo (CC BY 4.0)"
+          ],
+          "text": "The current weather in Ames, Iowa, United States (as of 2026-11-24T07:00Z) is overcast with a temperature of -5.6°C, wind speed of 7.3 km/h, and no precipitation. The storm risk is low (risk: 0.2), and there is no breach or cyclone activity.\n\nToday's forecast:\n- High: -0.3°C\n- Low: -6.9°C\n- Precipitation probability: 0%\n- Condition: Overcast\n\nTomorrow (2026-11-25):\n- High: 2.6°C\n- Low: -0.9°C\n- Precipitation probability: 9%\n- Wind max: 10.2 km/h\n\nSource: Amanat Weather Risk, data from Open-Meteo (CC BY 4.0)."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0x1f36bc3bcf1463d22be721a5d2e4e354ab6425d5a09a355def23c9e44d7b4773"
+      }
+    ],
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": null,
+        "pop_pct": 2,
+        "tmax_c": -0.3,
+        "tmin_c": -6.9,
+        "derived": "window 0-48h spread evenly over 2 days"
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": null,
+        "pop_pct": 2,
+        "tmax_c": -0.3,
+        "tmin_c": -6.9,
+        "derived": "window 0-48h spread evenly over 2 days"
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": -0.3,
+        "tmin_c": -6.9,
+        "derived": "window 48-72h"
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": null,
+        "tmin_c": null,
+        "derived": "window 72-120h spread evenly over 2 days"
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": null,
+        "tmin_c": null,
+        "derived": "window 72-120h spread evenly over 2 days"
+      }
+    ],
+    "cost_usd": 0.03,
+    "notes": [
+      "Rain for hours 0-48 was spread evenly over 2 days.",
+      "Rain for hours 72-120 was spread evenly over 2 days.",
+      "1 window purchase(s) failed: 24h. Confidence lowered.",
+      "Some windows gave no rain amount; the engine estimates it from the rain probability."
+    ]
+  },
+  "cost_usd": 0.03,
+  "outcome_date": "2026-11-28",
+  "mode": "live"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "61827e2d-00b0-48b7-bd8e-044e7fbf8cee",
+  "time": "2026-11-24T03:11:42.840Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Ibadan, Nigeria",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "preflight-ssl-verification",
+      "name": "PREFLIGHT Infrastructure Signals",
+      "rank": 1,
+      "receiptHash": "0x06e8c4a57c4955eeba0527fdcd03e0f12f88d1e2b90f71debd5b1c85026b8293"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "1273627acc4651c0374347a730ebf9f0f377ecb71762789e76bc189a6678f5e2",
+  "response": {
+    "status": "complete",
+    "answer": "The weather forecast for Ibadan, Oyo State, Nigeria over the next 120 hours (from 2026-11-24T03:00Z to 2026-11-29T02:00Z) is as follows:\n\n- **Condition**: Clear sky  \n- **Temperature range**: High of 33.9 °C, low of 24.1 °C  \n- **Precipitation probability**: 22% (totaling 1.6 mm)  \n- **Wind**: Sustained up to 12 km/h, gusts up to 38.2 km/h  \n- **Current temperature**: 24.6 °C (as of 2026-11-24T03:00Z)  \n- **Storm risk**: Low (risk score: 0.091)  \n\nData sources: Open-Meteo, MET Norway Locationforecast, NOAA METAR.  \nForecast checked at: 2026-11-24T03:11:11.761Z.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "preflight-ssl-verification",
+          "name": "PREFLIGHT Infrastructure Signals",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0x06e8c4a57c4955eeba0527fdcd03e0f12f88d1e2b90f71debd5b1c85026b8293"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "34b43c33-e702-4f1c-a5cd-1878e36f12e4",
+    "job_id": "8388c550-995b-4fd0-b04a-76379b2b5b63"
+  }
+}

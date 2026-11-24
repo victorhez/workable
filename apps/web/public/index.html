@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workable</title>
+<meta name="description" content="Workable turns rain forecasts into field decisions. Its agent buys weather intelligence through Telegraph, a soil-water model in code decides GO, WAIT or AVOID, and every call is scored against what actually happened.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%232f6b3a'/><path d='M7 21c4-7 14-7 18 0' stroke='%23ffd27a' stroke-width='3' fill='none' stroke-linecap='round'/><circle cx='16' cy='11' r='3.2' fill='white'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+<div class="shell">
+  <aside class="side">
+    <a href="#/" class="brand">
+      <span class="logo"><svg viewBox="0 0 32 32"><path d="M7 21c4-7 14-7 18 0" stroke="#ffd27a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="16" cy="11" r="3.2" fill="#fff"/></svg></span>
+      <span><b>Workable</b><small>Field decisions from rain</small></span>
+    </a>
+    <div class="menu-label">Main menu</div>
+    <nav class="menu">
+      <a href="#/" data-nav="overview"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>Overview</a>
+      <a href="#/decide" data-nav="decide"><svg viewBox="0 0 24 24"><path d="M12 3c-3 4-6 7-6 11a6 6 0 0 0 12 0c0-4-3-7-6-11z"/></svg>Decide</a>
+      <a href="#/decisions" data-nav="decisions"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>Decisions</a>
+      <a href="#/scoreboard" data-nav="scoreboard"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>Scoreboard</a>
+    </nav>
+    <div class="menu-label">General</div>
+    <nav class="menu">
+      <a href="#/method" data-nav="method"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/><circle cx="12" cy="12" r="3"/></svg>Method &amp; limits</a>
+    </nav>
+    <div class="side-card">
+      <div class="side-card-ico"><svg viewBox="0 0 24 24"><path d="M4 12h4l3-7 3 14 3-7h3"/></svg></div>
+      <b>Powered by Telegraph</b>
+      <p>Every forecast is bought from ranked miners, with an on-chain receipt.</p>
+      <span class="netpill" id="netpill">Checking…</span>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs" id="crumbs">Overview</div>
+      <div class="top-right">
+        <span class="chip"><i class="dot"></i>Testnet · Ethereum Sepolia</span>
+        <a class="btn btn-accent" href="#/decide">Make a decision</a>
+      </div>
+    </header>
+    <main id="app" aria-live="polite"></main>
+    <footer class="foot">
+      Workable is an entry in Telegraph Hackathon Season II (Apps &amp; Agents, Mission 06), which offers cash prizes.
+      Soil parameters are placeholders under review. Not agronomic advice.
+    </footer>
+  </div>
+</div>
+<script src="engine.js" onerror="window.Workable=null"></script>
+<script src="app.js"></script>
+</body>
+</html>

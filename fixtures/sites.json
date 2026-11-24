@@ -1,0 +1,7 @@
+[
+  { "id": "ibadan",  "location": "Ibadan, Nigeria",      "climate": "humid tropical (rainforest-savanna)", "soil": "sandy_loam" },
+  { "id": "kano",    "location": "Kano, Nigeria",        "climate": "semi-arid Sahel",                     "soil": "loamy_sand" },
+  { "id": "nairobi", "location": "Nairobi, Kenya",       "climate": "tropical highland, bimodal rains",    "soil": "clay" },
+  { "id": "ames",    "location": "Ames, Iowa, USA",      "climate": "humid continental",                   "soil": "clay_loam" },
+  { "id": "mendoza", "location": "Mendoza, Argentina",   "climate": "arid, irrigated",                     "soil": "loam" }
+]

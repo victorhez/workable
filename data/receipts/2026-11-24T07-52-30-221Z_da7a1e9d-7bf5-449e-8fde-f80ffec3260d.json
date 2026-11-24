@@ -1,0 +1,44 @@
+{
+  "id": "da7a1e9d-7bf5-449e-8fde-f80ffec3260d",
+  "time": "2026-11-24T07:52:30.221Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Mendoza, Argentina",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "amanat-weather-risk",
+      "name": "Amanat Weather Risk",
+      "rank": 1,
+      "receiptHash": "0x8d2cec4d26f074f83bd953baa6cc7ac5ed0752fb74539c6492e72a65836212b5"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "7612896bd859d29577cb9977fb8758177f12db618431290371df356faebbcb1f",
+  "response": {
+    "status": "complete",
+    "answer": "The current weather in Mendoza, Mendoza, Argentina is light drizzle with a temperature of 17.4°C, wind speed of 8.1 km/h, and a gust of 21.6 km/h. There is 0.1 mm of precipitation, and the storm risk is low at 0.24. The humidity is 62%, and it feels like 16.2°C.\n\nToday, November 24, 2026, the high will be 23.9°C and the low will be 16.1°C, with a 19% chance of precipitation.  \nTomorrow, November 25, 2026, expects a high of 26.8°C and a low of 15.9°C, with a 59% chance of slight rain showers.\n\nSource: Amanat Weather Risk, based on Open-Meteo data.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "amanat-weather-risk",
+          "name": "Amanat Weather Risk",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0x8d2cec4d26f074f83bd953baa6cc7ac5ed0752fb74539c6492e72a65836212b5"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "fe662bad-e4e9-4f88-94f5-13e169ea6e6c",
+    "job_id": "7943af54-44ae-44a4-b163-c4597a4cd4ee"
+  }
+}

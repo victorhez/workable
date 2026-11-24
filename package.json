@@ -2,15 +2,23 @@
   "name": "workable",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "test": "vitest run",
     "intents": "tsx --env-file-if-exists=.env scripts/intents.ts",
     "buy": "tsx --env-file-if-exists=.env scripts/first-purchase.ts",
-    "decide": "tsx --env-file-if-exists=.env scripts/decide.ts"
+    "log": "tsx --env-file-if-exists=.env scripts/log-forecasts.ts",
+    "decide": "tsx --env-file-if-exists=.env scripts/decide.ts",
+    "reproduce": "tsx scripts/reproduce.ts",
+    "outcomes": "tsx scripts/outcomes.ts",
+    "serve": "tsx --env-file-if-exists=.env apps/web/server.ts",
+    "build": "tsx scripts/build-site.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
+    "esbuild": "^0.28.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"

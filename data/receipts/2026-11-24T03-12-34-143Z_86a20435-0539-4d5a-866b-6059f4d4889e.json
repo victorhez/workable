@@ -1,0 +1,44 @@
+{
+  "id": "86a20435-0539-4d5a-866b-6059f4d4889e",
+  "time": "2026-11-24T03:12:34.143Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Kano, Nigeria",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "preflight-ssl-verification",
+      "name": "PREFLIGHT Infrastructure Signals",
+      "rank": 1,
+      "receiptHash": "0x52d58d1d3782006b6ebc85bdceb7e152975c111a5d4671eaf8544ae5c2396a6c"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "40d1e2eccf9df144a37eed97cd514cc2041500a15f233085fb6a1cc0db0bbb69",
+  "response": {
+    "status": "complete",
+    "answer": "The weather forecast for Kano, Kano State, Nigeria over the next 120 hours is for clear sky, with a high of 35.1 °C and a low of 20.1 °C. There is a 0% chance of precipitation, totaling 0 mm. Winds may reach up to 12.4 km/h, with gusts up to 29.9 km/h. The current temperature at 03:00Z is 21.1 °C. Storm risk is LOW (score 0).\n\nSource: Open-Meteo, MET Norway Locationforecast, NOAA METAR.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "preflight-ssl-verification",
+          "name": "PREFLIGHT Infrastructure Signals",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0x52d58d1d3782006b6ebc85bdceb7e152975c111a5d4671eaf8544ae5c2396a6c"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "5e3e01e9-591a-47fc-82cc-f2ed2d8183b9",
+    "job_id": "fc734891-137f-439d-8ac8-5515c84766ef"
+  }
+}

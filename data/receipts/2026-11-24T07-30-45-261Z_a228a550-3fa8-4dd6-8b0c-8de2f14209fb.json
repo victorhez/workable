@@ -1,0 +1,44 @@
+{
+  "id": "a228a550-3fa8-4dd6-8b0c-8de2f14209fb",
+  "time": "2026-11-24T07:30:45.261Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Ibadan, Nigeria",
+    "window_hours": 120
+  },
+  "miner": [
+    {
+      "slug": "amanat-weather-risk",
+      "name": "Amanat Weather Risk",
+      "rank": 1,
+      "receiptHash": "0x90afb778a6666b5e6e3db2dd89e5fec91a8674491fad260a8fd9d70234a8e61d"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "e73bf5c8b6794d8ddee43187c63d522cae6a8cf23b9b7a056917386fafd74e15",
+  "response": {
+    "status": "complete",
+    "answer": "The current weather in Ibadan, Oyo State, Nigeria is overcast with a temperature of 25.8°C, wind speed of 4.3 km/h, and no precipitation. The risk level is low at 0.132. Today's forecast shows a high of 33.3°C and a low of 24.4°C, with 100% cloud cover and a 0% chance of rain. Tomorrow is expected to have a high of 33.1°C, a low of 24.5°C, and a 21% chance of light drizzle.\n\nSource: Amanat Weather Risk, based on Open-Meteo data.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "amanat-weather-risk",
+          "name": "Amanat Weather Risk",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0x90afb778a6666b5e6e3db2dd89e5fec91a8674491fad260a8fd9d70234a8e61d"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "76410a81-784b-42e0-8099-00c32e797df1",
+    "job_id": "bb2ad44d-6b13-4c80-8aa2-b49a4b0dc3a5"
+  }
+}

@@ -32,19 +32,27 @@ export interface Receipt {
 }
 
 export class TelegraphClient {
-  private client = new Client({ name: "workable", version: "0.1.0" });
+  private client!: Client;
   private connected = false;
+  private connecting: Promise<void> | null = null;
 
   constructor(private receiptsDir = "data/receipts") {}
 
   async connect() {
     if (this.connected) return;
+    // Parallel asks share one connection; only the first caller starts it.
+    this.connecting ??= this.doConnect().catch((e) => { this.connecting = null; throw e; });
+    return this.connecting;
+  }
+
+  private async doConnect() {
     const isWin = process.platform === "win32";
     const transport = new StdioClientTransport({
       command: isWin ? "npx.cmd" : "npx",
       args: ["-y", "@telegraphprotocol/telegraph-protocol-mcp"],
       env: { ...process.env } as Record<string, string>,
     });
+    this.client = new Client({ name: "workable", version: "0.1.0" }); // fresh client per attempt
     await this.client.connect(transport);
     this.connected = true;
   }
@@ -52,6 +60,7 @@ export class TelegraphClient {
   async close() {
     if (this.connected) await this.client.close();
     this.connected = false;
+    this.connecting = null;
   }
 
   /** Call an MCP tool and parse its JSON text output. */
@@ -74,6 +83,11 @@ export class TelegraphClient {
     const args: Record<string, unknown> = { intent, params };
     if (miner) args.miner = miner;
     const response = await this.call<AskResult>(tool, args);
+    // Key mode reports some failures (e.g. payment rejected) as a normal result with status "failed".
+    if ((response as any)?.status === "failed") {
+      const why = typeof response.answer === "string" ? response.answer.split("\n")[0] : "status failed";
+      throw new Error(`${tool} failed: ${why}`);
+    }
     const receipt: Receipt = {
       id: randomUUID(),
       time: new Date().toISOString(),

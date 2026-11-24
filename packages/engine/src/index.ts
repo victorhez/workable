@@ -15,6 +15,7 @@ export interface DecideInput {
   activity: Activity;
   soil: SoilType;
   initial_storage_frac?: number; // S0 as a share of field capacity; default 1.0 (wet, conservative)
+  failed_windows?: number;       // forecast purchases that failed; each lowers confidence
   days: DayForecast[];
 }
 
@@ -120,6 +121,7 @@ export function decide(input: DecideInput): Decision {
   if (path.length < 3) score--;
   if (flags.includes("rain_mm_estimated_from_probability")) score--;
   if (flags.includes("horizon_too_short_for_dry_spell")) score--;
+  if ((input.failed_windows ?? 0) > 0) { score--; flags.push("failed_purchases"); }
   const confidence = score >= 2 ? "high" : score === 1 ? "medium" : "low";
 
   return { verdict, wait_days, reasons, would_change, confidence, days_to_workable: dtw, path, config_version: CONFIG_VERSION, flags };

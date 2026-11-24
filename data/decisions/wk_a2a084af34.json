@@ -1,0 +1,252 @@
+{
+  "id": "wk_a2a084af34",
+  "created_at": "2026-11-24T07:35:59.335Z",
+  "site": {
+    "location": "Kano, Nigeria"
+  },
+  "input": {
+    "activity": "harvest",
+    "soil": "loamy_sand",
+    "initial_storage_frac": 1,
+    "failed_windows": 0,
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": 0,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9
+      }
+    ]
+  },
+  "decision": {
+    "verdict": "GO",
+    "wait_days": null,
+    "reasons": [
+      "3 consecutive dry days are forecast from today."
+    ],
+    "would_change": "A run of 3 days each under 2 mm.",
+    "confidence": "medium",
+    "days_to_workable": 0,
+    "path": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 31,
+        "workable": true
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 27,
+        "workable": true
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": 0,
+        "estimated": false,
+        "storage_mm": 23,
+        "workable": true
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 19,
+        "workable": true
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 15,
+        "workable": true
+      }
+    ],
+    "config_version": "0.1.0-placeholder",
+    "flags": [
+      "rain_mm_estimated_from_probability"
+    ]
+  },
+  "forecast": {
+    "location": "Kano, Nigeria",
+    "bought_at": "2026-11-24T07:31:12.728Z",
+    "windows": [
+      {
+        "window_hours": 24,
+        "receipt_id": "4dd3912e-090d-48e8-86d5-045ecc4d2113",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.7,
+          "temp_min_c": 19.9,
+          "pop_pct": 0,
+          "rain_mm": null,
+          "condition": null,
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "using Open-Meteo data (model: ecmwf_ifs025)"
+          ],
+          "text": "The current weather in Kano, Kano State, Nigeria is 21.8 °C, feels like 19.3 °C, with 30% humidity and overcast conditions. Cloud cover is 88%, wind is 6.8 km/h from the northeast with gusts up to 14.8 km/h, and there is no precipitation (0% chance of rain). This data is valid as of 2026-11-24T07:00Z.\n\nForecast for today (2026-11-24): high of 33.7 °C, low of 19.9 °C, overcast, 0% chance of rain.  \nForecast for tomorrow (2026-11-25): high of 34 °C, low of 20 °C, overcast, 0% chance of rain.\n\nStorm risk is low at 0.164, based on 51 ensemble runs (range: 0.19 to 0.23), with 0% exceeding the trigger threshold.\n\nSource: Amanat Weather Risk, using Open-Meteo data (model: ecmwf_ifs025)."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0xf581dac1a9d3eb35ddea60cb4f20bd075e462e691774f6b6b3824f21d71efc1e"
+      },
+      {
+        "window_hours": 48,
+        "receipt_id": "98e8a4da-7462-40a3-a134-b442bcd8604b",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.7,
+          "temp_min_c": 19.9,
+          "pop_pct": 0,
+          "rain_mm": 0,
+          "condition": null,
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "rain_mm"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "based on Open-Meteo data"
+          ],
+          "text": "The current weather in Kano, Kano State, Nigeria is 21.8 °C, with overcast conditions, 30% humidity, and wind at 6.8 km/h from the northeast. There is no precipitation (0 mm) and no chance of rain. The storm risk is low at 0.164.\n\nToday's forecast (2026-11-24) shows a high of 33.7 °C and a low of 19.9 °C, with overcast conditions and 0% chance of rain. Tomorrow (2026-11-25) is expected to be similar, with a high of 34 °C and a low of 20 °C, also overcast with no rain.\n\nSource: Amanat Weather Risk, based on Open-Meteo data."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0x74fd8cf94f8a30bd23b4757199e2fede7f044af6b0e1ee2e0dd287742a8c0c5f"
+      },
+      {
+        "window_hours": 72,
+        "receipt_id": "0bbfa0d3-00f6-4dda-8f29-1e941cdd9707",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.7,
+          "temp_min_c": 19.9,
+          "pop_pct": 0,
+          "rain_mm": 0,
+          "condition": null,
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "rain_mm"
+          ],
+          "sources": [],
+          "text": "The current weather in Kano, Kano State, Nigeria is 21.8 °C, feels like 19.3 °C, with 30% humidity and overcast conditions. Cloud cover is 88%, wind is 6.8 km/h from the north-east with gusts up to 14.8 km/h, and there is no precipitation (0 mm, 0% chance of rain). This data is valid as of 2026-11-24T07:00Z.\n\nForecast:\n- Today (2026-11-24): High of 33.7 °C, low of 19.9 °C, overcast, 0% chance of rain.\n- Tomorrow (2026-11-25): High of 34 °C, low of 20 °C, overcast, 0% chance of rain.\n\nStorm risk is low at 0.164, with no breach detected. The forecast is based on the ECMWF IFS025 model, using data from Open-Meteo (source: Amanat Weather Risk)."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0x0a4cf5fe74492b23015f532eb421600fb967a3dc3f1be39fd9c1e50f5567f931"
+      },
+      {
+        "window_hours": 120,
+        "receipt_id": "d6d69fd1-e314-41d0-8738-fb70139d33a6",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.7,
+          "temp_min_c": 19.9,
+          "pop_pct": 0,
+          "rain_mm": null,
+          "condition": null,
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "using data from Open-Meteo (CC BY 4.0)"
+          ],
+          "text": "The current weather in Kano, Kano State, Nigeria is 21.8 °C, feels like 19.3 °C, with 30% humidity and overcast conditions. Cloud cover is 88%, wind is 6.8 km/h from the north-east with gusts up to 14.8 km/h, and there is no precipitation (0% chance of rain). This observation is valid for 2026-11-24T07:00Z.\n\nForecast:\n- Today (2026-11-24): High of 33.7 °C, low of 19.9 °C, overcast, 0% chance of rain.\n- Tomorrow (2026-11-25): High of 34 °C, low of 20 °C, overcast, 0% chance of rain.\n\nStorm risk is low at 0.164, based on 51 ensemble runs showing values between 0.19 and 0.23, with no runs exceeding the trigger threshold.\n\nSource: Amanat Weather Risk, using data from Open-Meteo (CC BY 4.0)."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0x8304841581756b5bc4b0f4103a9c43fb15a28c6f4180ca49cd25c9a49d183da5"
+      }
+    ],
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9,
+        "derived": "window 0-24h"
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9,
+        "derived": "window 24-48h"
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": 0,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9,
+        "derived": "window 48-72h"
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9,
+        "derived": "window 72-120h spread evenly over 2 days"
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.7,
+        "tmin_c": 19.9,
+        "derived": "window 72-120h spread evenly over 2 days"
+      }
+    ],
+    "cost_usd": 0.04,
+    "notes": [
+      "Rain for hours 72-120 was spread evenly over 2 days.",
+      "Some windows gave no rain amount; the engine estimates it from the rain probability."
+    ]
+  },
+  "cost_usd": 0.04,
+  "outcome_date": "2026-11-28",
+  "mode": "live"
+}

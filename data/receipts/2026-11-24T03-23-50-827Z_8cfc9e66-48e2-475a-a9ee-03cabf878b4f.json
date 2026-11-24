@@ -1,0 +1,22 @@
+{
+  "id": "8cfc9e66-48e2-475a-a9ee-03cabf878b4f",
+  "time": "2026-11-24T03:23:50.827Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Ibadan, Nigeria",
+    "window_hours": 120
+  },
+  "miner": [],
+  "cost_usd": null,
+  "payment": null,
+  "response_sha256": "cf2ba33e4e2c3bc52b792f4886cf1972e2329a125b6fcb097a5a196fc0a6abc7",
+  "response": {
+    "status": "failed",
+    "answer": "Payment was rejected by the facilitator for the weather forecast request. Please try again with a successful payment.\n\nStill needed: Ask WEATHER_FORECAST_GENERAL.",
+    "sources": [],
+    "cost_usd": null,
+    "conversation_id": "7f36b924-440d-4b9a-b1cf-c04cc8f4d1e4",
+    "job_id": "0162a1fb-de53-4d8a-b8ae-180c99e9dfde"
+  }
+}

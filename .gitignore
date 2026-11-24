@@ -1,3 +1,6 @@
 node_modules
 .env
 data/*.sqlite
+dist
+apps/web/public/engine.js
+.vercel

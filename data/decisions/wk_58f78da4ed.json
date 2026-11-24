@@ -1,0 +1,113 @@
+{
+  "id": "wk_58f78da4ed",
+  "created_at": "2026-11-24T03:22:11.344Z",
+  "site": {
+    "location": "Ibadan, Nigeria"
+  },
+  "input": {
+    "activity": "field_work",
+    "soil": "sandy_loam",
+    "initial_storage_frac": 1,
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": 0,
+        "pop_pct": 2,
+        "tmax_c": 33.4,
+        "tmin_c": 24.1
+      }
+    ]
+  },
+  "decision": {
+    "verdict": "WAIT",
+    "wait_days": null,
+    "reasons": [
+      "Soil does not reach the workable threshold within the forecast."
+    ],
+    "would_change": "A longer dry run in the forecast.",
+    "confidence": "low",
+    "days_to_workable": null,
+    "path": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": 0,
+        "estimated": false,
+        "storage_mm": 41,
+        "workable": false
+      }
+    ],
+    "config_version": "0.1.0-placeholder",
+    "flags": []
+  },
+  "forecast": {
+    "location": "Ibadan, Nigeria",
+    "bought_at": "2026-11-24T03:21:01.737Z",
+    "windows": [
+      {
+        "window_hours": 24,
+        "receipt_id": "29e2b00e-d38f-48ed-a9bc-7ab044c6f8c1",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.4,
+          "temp_min_c": 24.1,
+          "pop_pct": 2,
+          "rain_mm": 0,
+          "condition": "clear sky",
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "rain_mm",
+            "condition"
+          ],
+          "sources": [
+            "Open-Meteo",
+            "MET Norway Locationforecast",
+            "NOAA METAR"
+          ],
+          "text": "The weather forecast for Ibadan, Oyo State, Nigeria over the next 24 hours is clear sky, with a high of 33.4 °C and a low of 24.1 °C. There is a 2% chance of precipitation, totaling 0 mm. Sustained winds may reach up to 11.4 km/h, with gusts up to 26.6 km/h. The current temperature is 24.5 °C (as of 2026-11-24T03:15Z). Storm risk is LOW (risk score: 0).\n\nSources: Open-Meteo, MET Norway Locationforecast, NOAA METAR."
+        },
+        "miner_label": "PREFLIGHT Infrastructure Signals, rank 1",
+        "receipt_hash": "0x8928c7099e279782b4cd67b3eb522b85ff035a195044ca49590fac463c788ffa"
+      },
+      {
+        "window_hours": 48,
+        "receipt_id": null,
+        "cost_usd": null,
+        "parsed": null,
+        "error": "Already connected to a transport. Call close() before connecting to a new transport, or use a separate Protocol instance per connection."
+      },
+      {
+        "window_hours": 72,
+        "receipt_id": null,
+        "cost_usd": null,
+        "parsed": null,
+        "error": "Already connected to a transport. Call close() before connecting to a new transport, or use a separate Protocol instance per connection."
+      },
+      {
+        "window_hours": 120,
+        "receipt_id": null,
+        "cost_usd": null,
+        "parsed": null,
+        "error": "Already connected to a transport. Call close() before connecting to a new transport, or use a separate Protocol instance per connection."
+      }
+    ],
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": 0,
+        "pop_pct": 2,
+        "tmax_c": 33.4,
+        "tmin_c": 24.1,
+        "derived": "window 0-24h"
+      }
+    ],
+    "cost_usd": 0.01,
+    "notes": [
+      "3 window purchase(s) failed: 48h, 72h, 120h. Confidence lowered."
+    ]
+  },
+  "cost_usd": 0.01,
+  "outcome_date": "2026-11-24",
+  "mode": "live"
+}

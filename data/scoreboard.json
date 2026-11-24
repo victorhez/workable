@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-11-24T07:54:16.119Z",
+  "observed_source": "Open-Meteo (open-meteo.com, CC BY 4.0) recent analysis; not bought through Telegraph",
+  "summary": {
+    "decisions_total": 8,
+    "decisions_judged": 0,
+    "decisions_pending": 8,
+    "decisions_correct": 0,
+    "accuracy": null,
+    "cost_per_correct_decision_usd": null,
+    "cost_per_useful_alert_usd": null,
+    "median_hours_of_warning": null,
+    "forecast_windows_scored": 0,
+    "sample_size_note": "Small sample (0 judged decisions, 0 forecast windows). Treat these numbers as early indications, not proof."
+  },
+  "by_horizon": {},
+  "judged": [],
+  "forecasts": []
+}

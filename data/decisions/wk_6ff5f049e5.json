@@ -1,0 +1,219 @@
+{
+  "id": "wk_6ff5f049e5",
+  "created_at": "2026-11-24T07:22:31.452Z",
+  "site": {
+    "location": "Ibadan, Nigeria"
+  },
+  "input": {
+    "activity": "field_work",
+    "soil": "sandy_loam",
+    "initial_storage_frac": 1,
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.3,
+        "tmin_c": 24.4
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.3,
+        "tmin_c": 24.4
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.3,
+        "tmin_c": 24.4
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": null,
+        "pop_pct": 21,
+        "tmax_c": 33.1,
+        "tmin_c": 24.5
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": null,
+        "pop_pct": 21,
+        "tmax_c": 33.1,
+        "tmin_c": 24.5
+      }
+    ]
+  },
+  "decision": {
+    "verdict": "WAIT",
+    "wait_days": 1,
+    "reasons": [
+      "Soil is too wet now; it should be workable on 2026-11-25."
+    ],
+    "would_change": "Less rain or a drier start would bring this forward.",
+    "confidence": "low",
+    "days_to_workable": 1,
+    "path": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 41,
+        "workable": false
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 37,
+        "workable": true
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": 0,
+        "estimated": true,
+        "storage_mm": 33,
+        "workable": true
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": 2.1,
+        "estimated": true,
+        "storage_mm": 31.1,
+        "workable": true
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": 2.1,
+        "estimated": true,
+        "storage_mm": 29.2,
+        "workable": true
+      }
+    ],
+    "config_version": "0.1.0-placeholder",
+    "flags": [
+      "rain_mm_estimated_from_probability"
+    ]
+  },
+  "forecast": {
+    "location": "Ibadan, Nigeria",
+    "bought_at": "2026-11-24T07:19:11.713Z",
+    "windows": [
+      {
+        "window_hours": 24,
+        "receipt_id": null,
+        "cost_usd": null,
+        "parsed": null,
+        "error": "Already connected to a transport. Call close() before connecting to a new transport, or use a separate Protocol instance per connection."
+      },
+      {
+        "window_hours": 48,
+        "receipt_id": null,
+        "cost_usd": null,
+        "parsed": null,
+        "error": "Already connected to a transport. Call close() before connecting to a new transport, or use a separate Protocol instance per connection."
+      },
+      {
+        "window_hours": 72,
+        "receipt_id": "bc5caeb8-b84e-4674-a8fe-b4bcc29e67a7",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.3,
+          "temp_min_c": 24.4,
+          "pop_pct": 0,
+          "rain_mm": null,
+          "condition": "overcast",
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "condition"
+          ],
+          "sources": [],
+          "text": "The current weather in Ibadan, Oyo State, Nigeria is overcast with a temperature of 25.8°C, wind speed of 4.3 km/h, and no precipitation. The forecast for today (2026-11-24) shows a high of 33.3°C and a low of 24.4°C, with a 0% chance of rain. Tomorrow (2026-11-25) is expected to have a high of 33.1°C, a low of 24.5°C, and a 21% probability of light drizzle.\n\nData source: Amanat Weather Risk, based on Open-Meteo."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0x8013bffb17919a8c65d1545d1d496e9c745c8751056d2ed818041bcb4224a354"
+      },
+      {
+        "window_hours": 120,
+        "receipt_id": "c21296a2-0327-46b3-b8d4-eba71717d196",
+        "cost_usd": 0.01,
+        "parsed": {
+          "temp_max_c": 33.1,
+          "temp_min_c": 24.5,
+          "pop_pct": 21,
+          "rain_mm": null,
+          "condition": "overcast",
+          "from_text": [
+            "temp_max_c",
+            "temp_min_c",
+            "pop_pct",
+            "condition"
+          ],
+          "sources": [
+            "Amanat Weather Risk",
+            "based on Open-Meteo data"
+          ],
+          "text": "The current weather in Ibadan, Oyo State, Nigeria is overcast with a temperature of 25.8°C. The wind speed is 4.3 km/h, with gusts up to 11.9 km/h. There is no precipitation at the moment, and the storm risk is low (risk score: 0.132).  \n\nToday, November 24, 2026, the high will be 33.3°C and the low 24.4°C, with 100% cloud cover and no chance of rain. Tomorrow, November 25, the forecast is for light drizzle with a 21% chance of precipitation, a high of 33.1°C, and a low of 24.5°C.\n\nSource: Amanat Weather Risk, based on Open-Meteo data."
+        },
+        "miner_label": "Amanat Weather Risk, rank 1",
+        "receipt_hash": "0xf4b7bbe10cb6e918ad14216ff224511caa9c29990fee24e8fcefb061184843a5"
+      }
+    ],
+    "days": [
+      {
+        "date": "2026-11-24",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.3,
+        "tmin_c": 24.4,
+        "derived": "window 0-72h spread evenly over 3 days"
+      },
+      {
+        "date": "2026-11-25",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.3,
+        "tmin_c": 24.4,
+        "derived": "window 0-72h spread evenly over 3 days"
+      },
+      {
+        "date": "2026-11-26",
+        "rain_mm": null,
+        "pop_pct": 0,
+        "tmax_c": 33.3,
+        "tmin_c": 24.4,
+        "derived": "window 0-72h spread evenly over 3 days"
+      },
+      {
+        "date": "2026-11-27",
+        "rain_mm": null,
+        "pop_pct": 21,
+        "tmax_c": 33.1,
+        "tmin_c": 24.5,
+        "derived": "window 72-120h spread evenly over 2 days"
+      },
+      {
+        "date": "2026-11-28",
+        "rain_mm": null,
+        "pop_pct": 21,
+        "tmax_c": 33.1,
+        "tmin_c": 24.5,
+        "derived": "window 72-120h spread evenly over 2 days"
+      }
+    ],
+    "cost_usd": 0.02,
+    "notes": [
+      "Rain for hours 0-72 was spread evenly over 3 days.",
+      "Rain for hours 72-120 was spread evenly over 2 days.",
+      "2 window purchase(s) failed: 24h, 48h. Confidence lowered.",
+      "Some windows gave no rain amount; the engine estimates it from the rain probability."
+    ]
+  },
+  "cost_usd": 0.02,
+  "outcome_date": "2026-11-28",
+  "mode": "live"
+}

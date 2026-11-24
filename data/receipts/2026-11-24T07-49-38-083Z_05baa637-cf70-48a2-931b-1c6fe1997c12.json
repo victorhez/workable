@@ -1,0 +1,44 @@
+{
+  "id": "05baa637-cf70-48a2-931b-1c6fe1997c12",
+  "time": "2026-11-24T07:49:38.083Z",
+  "tool": "telegraph_ask",
+  "intent": "WEATHER_FORECAST_GENERAL",
+  "params": {
+    "location": "Ames, Iowa, USA",
+    "window_hours": 72
+  },
+  "miner": [
+    {
+      "slug": "amanat-weather-risk",
+      "name": "Amanat Weather Risk",
+      "rank": 1,
+      "receiptHash": "0xbaa145e54af7c4908d6752a9e80b66c793b1c01764287414575ae21b7ac2a5cd"
+    }
+  ],
+  "cost_usd": 0.01,
+  "payment": null,
+  "response_sha256": "d9f0477866325d4b29a492fedfa894f491cdd92f5e5111acab18eb5e2aee4192",
+  "response": {
+    "status": "complete",
+    "answer": "The current weather in Ames, Iowa, United States is overcast with a temperature of -5.6°C, wind speed of 7.3 km/h, and no precipitation. The storm risk is low (risk: 0.2).  \n\nToday (2026-11-24) will have a high of -0.3°C and a low of -6.9°C, with a 0% chance of precipitation.  \nTomorrow (2026-11-25) is expected to be slightly warmer, with a high of 2.6°C and a low of -0.9°C, and a 9% chance of precipitation.\n\nSource: Amanat Weather Risk, data from Open-Meteo.",
+    "sources": [
+      {
+        "intent": "WEATHER_FORECAST_GENERAL",
+        "question": "Ask WEATHER_FORECAST_GENERAL",
+        "kind": "miner",
+        "miner": {
+          "slug": "amanat-weather-risk",
+          "name": "Amanat Weather Risk",
+          "rank": 1
+        },
+        "routedBy": "node",
+        "delivery": "specialist",
+        "supply": "unknown",
+        "receiptHash": "0xbaa145e54af7c4908d6752a9e80b66c793b1c01764287414575ae21b7ac2a5cd"
+      }
+    ],
+    "cost_usd": 0.01,
+    "conversation_id": "4db3114b-b2cb-4f9d-87cf-1dd9c9c90c52",
+    "job_id": "5ac5d760-1037-473d-8da2-4a54b674598b"
+  }
+}
