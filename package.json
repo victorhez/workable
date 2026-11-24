@@ -5,9 +5,9 @@
   "workspaces": ["packages/*"],
   "scripts": {
     "test": "vitest run",
-    "intents": "tsx scripts/intents.ts",
-    "buy": "tsx scripts/first-purchase.ts",
-    "decide": "tsx scripts/decide.ts"
+    "intents": "tsx --env-file-if-exists=.env scripts/intents.ts",
+    "buy": "tsx --env-file-if-exists=.env scripts/first-purchase.ts",
+    "decide": "tsx --env-file-if-exists=.env scripts/decide.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
