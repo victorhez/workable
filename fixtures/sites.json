@@ -1,7 +1,14 @@
 [
-  { "id": "ibadan",  "location": "Ibadan, Nigeria",      "climate": "humid tropical (rainforest-savanna)", "soil": "sandy_loam" },
-  { "id": "kano",    "location": "Kano, Nigeria",        "climate": "semi-arid Sahel",                     "soil": "loamy_sand" },
-  { "id": "nairobi", "location": "Nairobi, Kenya",       "climate": "tropical highland, bimodal rains",    "soil": "clay" },
-  { "id": "ames",    "location": "Ames, Iowa, USA",      "climate": "humid continental",                   "soil": "clay_loam" },
-  { "id": "mendoza", "location": "Mendoza, Argentina",   "climate": "arid, irrigated",                     "soil": "loam" }
+  { "id": "ibadan",    "location": "Ibadan, Nigeria",            "climate": "humid tropical, dry season starting",  "soil": "sandy_loam", "et_mm_day": 4.5, "activities": ["field_work", "harvest"] },
+  { "id": "kano",      "location": "Kano, Nigeria",              "climate": "semi-arid Sahel, dry season",          "soil": "loamy_sand", "et_mm_day": 6,   "activities": ["harvest", "field_work"] },
+  { "id": "jos",       "location": "Jos, Nigeria",               "climate": "highland savanna; tin-mining area",    "soil": "sandy_loam", "et_mm_day": 4.5, "activities": ["mine", "harvest"] },
+  { "id": "tamale",    "location": "Tamale, Ghana",              "climate": "Guinea savanna, dry season",           "soil": "loamy_sand", "et_mm_day": 5.5, "activities": ["harvest", "field_work"] },
+  { "id": "nairobi",   "location": "Nairobi, Kenya",             "climate": "tropical highland, short rains",       "soil": "clay",       "et_mm_day": 4.5, "activities": ["plant", "field_work"] },
+  { "id": "kitwe",     "location": "Kitwe, Zambia",              "climate": "Copperbelt, rainy season starting",    "soil": "clay_loam",  "et_mm_day": 4.5, "activities": ["mine", "plant"] },
+  { "id": "joburg",    "location": "Johannesburg, South Africa", "climate": "highveld summer rains; gold mining",   "soil": "clay_loam",  "et_mm_day": 5.5, "activities": ["mine", "plant"] },
+  { "id": "sorriso",   "location": "Sorriso, Brazil",            "climate": "tropical savanna, soy planting season","soil": "clay",       "et_mm_day": 4.5, "activities": ["plant", "field_work"] },
+  { "id": "ludhiana",  "location": "Ludhiana, India",            "climate": "semi-arid, wheat sowing season",       "soil": "loam",       "et_mm_day": 2.5, "activities": ["field_work", "plant"] },
+  { "id": "ames",      "location": "Ames, Iowa, USA",            "climate": "humid continental, early winter",      "soil": "clay_loam",  "et_mm_day": 1,   "activities": ["field_work", "harvest"] },
+  { "id": "mendoza",   "location": "Mendoza, Argentina",         "climate": "arid, irrigated vineyards",            "soil": "loam",       "et_mm_day": 6,   "activities": ["field_work", "harvest"] },
+  { "id": "kalgoorlie","location": "Kalgoorlie, Australia",      "climate": "arid; gold mining",                    "soil": "sandy_loam", "et_mm_day": 7,   "activities": ["mine", "field_work"] }
 ]

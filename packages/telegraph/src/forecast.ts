@@ -7,7 +7,7 @@ export const HORIZONS = [24, 48, 72, 120];
 
 export interface WindowForecast { window_hours: number; receipt_id: string | null; cost_usd: number | null; parsed: ParsedForecast | null; miner_label?: string; receipt_hash?: string; error?: string }
 
-export interface DailyDay { date: string; rain_mm: number | null; pop_pct: number | null; tmax_c: number | null; tmin_c: number | null; derived: string }
+export interface DailyDay { date: string; rain_mm: number | null; pop_pct: number | null; tmax_c: number | null; tmin_c: number | null; derived: string; rain_quality: "stated" | "spread" | "estimated" | "inconsistent" }
 
 export interface BoughtForecast {
   location: string;
@@ -31,7 +31,14 @@ export function windowsToDays(start: string, windows: WindowForecast[]): { days:
     const n = Math.round((w.window_hours - prevH) / 24);
     if (n <= 0) continue;
     let perDay: number | null = null;
-    if (p.rain_mm !== null && prevMm !== null) perDay = Math.max(0, p.rain_mm - prevMm) / n;
+    let inconsistent = false;
+    if (p.rain_mm !== null && prevMm !== null) {
+      const diff = p.rain_mm - prevMm;
+      // Windows should be cumulative totals; a smaller total for a longer window means they are not. Never use it silently.
+      if (diff < 0) { inconsistent = true; notes.push(`The ${w.window_hours}h total (${p.rain_mm} mm) is smaller than the ${prevH}h total (${prevMm} mm), so these windows are not cumulative; days ${prevH / 24 + 1}-${w.window_hours / 24} fall back to the rain-probability estimate.`); }
+      else perDay = diff / n;
+    }
+    const quality = inconsistent ? "inconsistent" : perDay === null ? "estimated" : n > 1 ? "spread" : "stated";
     for (let i = 0; i < n; i++) {
       days.push({
         date: addDays(start, days.length),
@@ -39,11 +46,12 @@ export function windowsToDays(start: string, windows: WindowForecast[]): { days:
         pop_pct: p.pop_pct,
         tmax_c: p.temp_max_c, tmin_c: p.temp_min_c,
         derived: n === 1 ? `window ${prevH}-${w.window_hours}h` : `window ${prevH}-${w.window_hours}h spread evenly over ${n} days`,
+        rain_quality: quality,
       });
     }
-    if (n > 1) notes.push(`Rain for hours ${prevH}-${w.window_hours} was spread evenly over ${n} days.`);
+    if (n > 1 && perDay !== null) notes.push(`Rain for hours ${prevH}-${w.window_hours} was spread evenly over ${n} days.`);
     prevH = w.window_hours;
-    prevMm = p.rain_mm;
+    prevMm = p.rain_mm === null ? null : Math.max(prevMm ?? 0, p.rain_mm);
   }
   const failed = windows.filter((w) => !w.parsed);
   if (failed.length) notes.push(`${failed.length} window purchase(s) failed: ${failed.map((w) => w.window_hours + "h").join(", ")}. Confidence lowered.`);

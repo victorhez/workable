@@ -10,6 +10,7 @@ export function stats() {
   const spend = paid.reduce((a, r) => a + (r.cost_usd ?? 0), 0);
   const reproduced = decisions.filter((d) => reproduce(d).identical).length;
   const board = existsSync("data/scoreboard.json") ? JSON.parse(readFileSync("data/scoreboard.json", "utf8")) : null;
+  const account = existsSync("data/account.json") ? JSON.parse(readFileSync("data/account.json", "utf8")) : null;
   const verdicts = { GO: 0, WAIT: 0, AVOID: 0 } as Record<string, number>;
   for (const d of decisions) verdicts[d.decision.verdict]++;
   const miners = new Set<string>();
@@ -27,5 +28,7 @@ export function stats() {
     judged: board?.summary?.decisions_judged ?? 0,
     accuracy: board?.summary?.accuracy ?? null,
     last_purchase_at: paid.map((r) => r.time).sort().at(-1) ?? null,
+    escrow_usd: account?.spendable_usd ?? null,
+    escrow_checked_at: account?.checked_at ?? null,
   };
 }

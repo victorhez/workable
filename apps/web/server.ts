@@ -2,7 +2,7 @@
 import { createServer } from "node:http";
 import { existsSync, readFileSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
-import { CONFIG_VERSION, RULES, SOILS } from "../../packages/engine/src/index.ts";
+import { CONFIG_VERSION, RULES, SOILS, SOIL_DEPTH_CM } from "../../packages/engine/src/index.ts";
 import { listDecisions, loadDecision, reproduce } from "../../packages/engine/src/store.ts";
 import { runDecide, demoForecast } from "../../scripts/lib/service.ts";
 import { stats } from "../../scripts/lib/stats.ts";
@@ -27,7 +27,7 @@ createServer(async (req, res) => {
     if (url.pathname === "/api/health") return send(200, { server: true, live: LIVE_ENABLED });
     if (url.pathname === "/api/sites") return send(200, sites());
     if (url.pathname === "/api/stats") return send(200, stats());
-    if (url.pathname === "/api/config") return send(200, { version: CONFIG_VERSION, soils: SOILS, rules: RULES });
+    if (url.pathname === "/api/config") return send(200, { version: CONFIG_VERSION, soils: SOILS, rules: RULES, depth_cm: SOIL_DEPTH_CM });
     if (url.pathname === "/api/decisions") return send(200, listDecisions().map(summary).sort((a, b) => b.created_at.localeCompare(a.created_at)));
     if (url.pathname.startsWith("/api/decision/")) {
       const rec = loadDecision(url.pathname.split("/").pop()!);

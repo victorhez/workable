@@ -50,7 +50,8 @@ export class TelegraphClient {
     const transport = new StdioClientTransport({
       command: isWin ? "npx.cmd" : "npx",
       args: ["-y", "@telegraphprotocol/telegraph-protocol-mcp"],
-      env: { ...process.env } as Record<string, string>,
+      // Asks cost about $0.01. In wallet mode this caps the per-ask hold at $0.05; key mode (API key) still holds $0.26 server-side.
+      env: { TELEGRAPH_MAX_BUDGET_USDC: "50000", ...process.env } as Record<string, string>,
     });
     this.client = new Client({ name: "workable", version: "0.1.0" }); // fresh client per attempt
     await this.client.connect(transport);

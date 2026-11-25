@@ -1,5 +1,10 @@
 // ALL VALUES ARE PLACEHOLDERS pending soil-science review. Bump CONFIG_VERSION on any change.
-export const CONFIG_VERSION = "0.1.0-placeholder";
+export const CONFIG_VERSION = "0.2.0-placeholder";
+// Units: soil water is millimetres of water held in the top 30 cm (the working / seedbed layer).
+// Workability is simplified to "storage at or below a share of field capacity"; in practice, especially for
+// clays, it depends on moisture relative to the plastic limit. Values to be checked against standard
+// available-water-capacity tables (e.g. FAO-56 Table 19 / USDA texture classes) before they are called reviewed.
+export const SOIL_DEPTH_CM = 30;
 
 export type SoilType = "sand" | "loamy_sand" | "sandy_loam" | "loam" | "clay_loam" | "clay";
 
@@ -20,7 +25,7 @@ export const SOILS: Record<SoilType, SoilProfile> = {
 };
 
 export const RULES = {
-  et_mm_day: 4,                 // default daily evapotranspiration
+  et_mm_day: 4,                 // default daily evaporation (simplification); sites can override
   wet_day_mm: 2,                // a day with >= this is "rain"
   heavy_rain_mm: 25,            // AVOID threshold
   // When the provider gives only probability: expected mm = pop/100 * this. Flagged as estimated.

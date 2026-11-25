@@ -6,7 +6,7 @@ import { message, whatsappLink } from "../../packages/engine/src/message.ts";
 import { TelegraphClient } from "../../packages/telegraph/src/index.ts";
 import { buyDailyForecast, type BoughtForecast } from "../../packages/telegraph/src/forecast.ts";
 
-export interface DecideRequest { location: string; site_id?: string; activity: Activity; soil: SoilType; initial_storage_frac?: number; mode: "live" | "demo" }
+export interface DecideRequest { location: string; site_id?: string; activity: Activity; soil: SoilType; initial_storage_frac?: number; et_mm_day?: number; mode: "live" | "demo" }
 
 const DEMO_DIR = "fixtures/demo-forecasts";
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -14,6 +14,10 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(
 let tg: TelegraphClient | null = null;
 const client = () => (tg ??= new TelegraphClient());
 export const closeClient = async () => { await tg?.close(); tg = null; };
+
+function siteEt(location: string): number | undefined {
+  try { return JSON.parse(readFileSync("fixtures/sites.json", "utf8")).find((s: any) => s.location === location)?.et_mm_day; } catch { return undefined; }
+}
 
 export function demoForecast(location: string): BoughtForecast | null {
   const f = `${DEMO_DIR}/${slug(location)}.json`;
@@ -24,6 +28,10 @@ export async function runDecide(req: DecideRequest) {
   let forecast: BoughtForecast;
   if (req.mode === "live") {
     forecast = (await buyDailyForecast(client(), req.location)).forecast;
+    if (!forecast.windows.some((w) => w.parsed)) {
+      // Nothing was bought: do not store an empty decision; report why instead.
+      throw new Error(`All forecast purchases failed: ${[...new Set(forecast.windows.map((w) => w.error ?? ""))].join(" | ").slice(0, 300)}`);
+    }
     // Keep the most recent live forecast per place as the demo fixture (real receipts, no funds needed later).
     const prev = demoForecast(req.location);
     const okCount = (f: BoughtForecast) => f.windows.filter((w) => w.parsed).length;
@@ -37,7 +45,9 @@ export async function runDecide(req: DecideRequest) {
     activity: req.activity, soil: req.soil,
     initial_storage_frac: req.initial_storage_frac ?? 1.0,
     failed_windows: forecast.windows.filter((w) => !w.parsed).length,
-    days: forecast.days.map((d) => ({ date: d.date, rain_mm: d.rain_mm, pop_pct: d.pop_pct, tmax_c: d.tmax_c, tmin_c: d.tmin_c })),
+    et_mm_day: req.et_mm_day ?? siteEt(req.location),
+    rules_version: 2,
+    days: forecast.days.map((d) => ({ date: d.date, rain_mm: d.rain_mm, pop_pct: d.pop_pct, tmax_c: d.tmax_c, tmin_c: d.tmin_c, rain_quality: d.rain_quality ?? (d.rain_mm === null ? "estimated" : /spread/.test(d.derived || "") ? "spread" : "stated") })),
   };
   const decision = decide(input);
   const created_at = new Date().toISOString();

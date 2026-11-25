@@ -7,6 +7,7 @@ export interface DayForecast {
   pop_pct?: number | null;  // fallback when mm is not provided
   tmax_c?: number | null;
   tmin_c?: number | null;
+  rain_quality?: "stated" | "spread" | "estimated" | "inconsistent"; // how the daily amount was obtained
 }
 
 export type Activity = "plant" | "field_work" | "harvest" | "mine";
@@ -16,10 +17,12 @@ export interface DecideInput {
   soil: SoilType;
   initial_storage_frac?: number; // S0 as a share of field capacity; default 1.0 (wet, conservative)
   failed_windows?: number;       // forecast purchases that failed; each lowers confidence
+  et_mm_day?: number;            // site evaporation default (simplification); falls back to RULES.et_mm_day
+  rules_version?: number;        // 2 = stricter confidence caps (Nov 25). Absent = v1, kept so old records reproduce exactly.
   days: DayForecast[];
 }
 
-export interface DayState { date: string; rain_mm: number; estimated: boolean; storage_mm: number; workable: boolean }
+export interface DayState { date: string; rain_mm: number; estimated: boolean; quality?: string; storage_mm: number; workable: boolean }
 
 export interface Decision {
   verdict: "GO" | "WAIT" | "AVOID";
@@ -40,25 +43,29 @@ export function rainOf(d: DayForecast): { mm: number; estimated: boolean } {
 }
 
 /** Daily bucket: +rain, -ET, drain a share of excess above FC, clamp to [0, sat]. */
-export function soilPath(soil: SoilType, days: DayForecast[], s0frac = 1.0): DayState[] {
+export function soilPath(soil: SoilType, days: DayForecast[], s0frac = 1.0, et = RULES.et_mm_day): DayState[] {
   const p = SOILS[soil];
   let s = Math.min(p.sat_mm, Math.max(0, s0frac * p.fc_mm));
   return days.map((d) => {
     const r = rainOf(d);
-    s = s + r.mm - RULES.et_mm_day;
+    s = s + r.mm - et;
     if (s > p.fc_mm) s -= (s - p.fc_mm) * p.drain_frac;
     s = Math.min(p.sat_mm, Math.max(0, s));
     const round = Math.round(s * 100) / 100;
-    return { date: d.date, rain_mm: Math.round(r.mm * 100) / 100, estimated: r.estimated, storage_mm: round, workable: round <= p.workable_frac * p.fc_mm };
+    const quality = d.rain_quality; // only present on v2 inputs, so v1 records reproduce byte-for-byte
+    return { date: d.date, rain_mm: Math.round(r.mm * 100) / 100, estimated: r.estimated, ...(quality ? { quality } : {}), storage_mm: round, workable: round <= p.workable_frac * p.fc_mm };
   });
 }
 
 export function decide(input: DecideInput): Decision {
-  const path = soilPath(input.soil, input.days, input.initial_storage_frac ?? 1.0);
+  const v2 = (input.rules_version ?? 1) >= 2;
+  const path = soilPath(input.soil, input.days, input.initial_storage_frac ?? 1.0, input.et_mm_day ?? RULES.et_mm_day);
   const flags: string[] = [];
   if (path.some((d) => d.estimated)) flags.push("rain_mm_estimated_from_probability");
+  if (v2 && input.days.some((d) => d.rain_quality === "spread")) flags.push("rain_spread_evenly");
+  if (v2 && input.days.some((d) => d.rain_quality === "inconsistent")) flags.push("rain_window_inconsistent");
   if (path.length === 0) {
-    return { verdict: "WAIT", wait_days: null, reasons: ["No forecast data was bought, so no decision can be made."], would_change: "A successful forecast purchase.", confidence: "low", days_to_workable: null, path, config_version: CONFIG_VERSION, flags: [...flags, "no_data"] };
+    return { verdict: "WAIT", wait_days: null, reasons: ["No forecast data was bought, so no decision can be made."], would_change: "A successful forecast purchase.", confidence: "low", days_to_workable: null, path, config_version: v2 ? CONFIG_VERSION : "0.1.0-placeholder", flags: [...flags, "no_data"] };
   }
   const idx = path.findIndex((d) => d.workable);
   const dtw = idx === -1 ? null : idx;
@@ -122,7 +129,24 @@ export function decide(input: DecideInput): Decision {
   if (flags.includes("rain_mm_estimated_from_probability")) score--;
   if (flags.includes("horizon_too_short_for_dry_spell")) score--;
   if ((input.failed_windows ?? 0) > 0) { score--; flags.push("failed_purchases"); }
-  const confidence = score >= 2 ? "high" : score === 1 ? "medium" : "low";
+  let confidence: Decision["confidence"] = score >= 2 ? "high" : score === 1 ? "medium" : "low";
 
-  return { verdict, wait_days, reasons, would_change, confidence, days_to_workable: dtw, path, config_version: CONFIG_VERSION, flags };
+  if (v2) {
+    if (flags.includes("rain_window_inconsistent")) confidence = lower(confidence);
+    // A rule that cannot be fully checked never yields a confident answer.
+    if (flags.includes("horizon_too_short_for_dry_spell")) {
+      confidence = "low";
+      reasons.push(`Dry-spell risk beyond day ${path.length} not assessed: the forecast covers ${path.length} days and the rule needs ${RULES.plant_dry_spell_days} after the onset rains.`);
+    }
+    // Planting and harvest GO must not rest on rain amounts the miners did not state.
+    const softRain = flags.some((f) => f === "rain_mm_estimated_from_probability" || f === "rain_spread_evenly" || f === "rain_window_inconsistent");
+    if (verdict === "GO" && (input.activity === "plant" || input.activity === "harvest") && softRain) {
+      confidence = "low";
+      reasons.push("Some rain amounts are estimated, so treat this GO as provisional and check again closer to the day.");
+    }
+  }
+
+  return { verdict, wait_days, reasons, would_change, confidence, days_to_workable: dtw, path, config_version: v2 ? CONFIG_VERSION : "0.1.0-placeholder", flags };
 }
+
+const lower = (c: Decision["confidence"]): Decision["confidence"] => (c === "high" ? "medium" : "low");

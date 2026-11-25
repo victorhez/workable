@@ -20,6 +20,8 @@ Built for Telegraph Hackathon Season II, Apps & Agents track, **Mission 06: Reso
 | `npm run reproduce -- <decision-id>` (or `-- --all`) | `IDENTICAL`: the engine re-runs from stored inputs and gives the same decision |
 | `npm run serve` then open http://localhost:5175 | The full app: demo mode, and **live mode** if a Telegraph key or wallet is configured |
 | `npm run outcomes` | Observed weather fetched, decisions judged, `data/scoreboard.json` written; see the **Scoreboard** page |
+| Open https://workable-telegraph.vercel.app/summary | A plain HTML summary with the current numbers, readable without JavaScript |
+| Open https://workable-telegraph.vercel.app/data/index.json | The open JSON data: decisions, receipts, scoreboard, stats, config. Each decision has a stable page at `/d/<id>` |
 
 ## Live mode (buys through Telegraph)
 
@@ -29,7 +31,7 @@ Built for Telegraph Hackathon Season II, Apps & Agents track, **Mission 06: Reso
 
 A live decision buys `WEATHER_FORECAST_GENERAL` for 24h, 48h, 72h and 120h windows in parallel (about $0.04 on testnet), with no human approving each purchase. Each purchase is saved in `data/receipts/` with miner, cost, time, response hash and the on-chain receipt hash.
 
-`npm run log` buys one 120h forecast for each of the 5 tracked sites (`fixtures/sites.json`) and appends it to `data/forecasts.jsonl`, so the scoreboard keeps growing. Schedule it daily.
+`npm run daily` makes one live decision for each of the 12 tracked sites (`fixtures/sites.json`: farms in Nigeria, Ghana, Kenya, Brazil, India, the USA and Argentina, and mines in Jos, Kitwe, Johannesburg and Kalgoorlie), rotating the activity by day, capped at `WORKABLE_DAILY_CAP_USD` (default $0.60) and stopping if escrow runs low. `scripts/daily.ps1` runs it, then `outcomes`, rebuilds and redeploys the demo, and pushes the data; schedule it daily. (`npm run log` still buys one 120h forecast per site if you only want forecast data.)
 
 ## How it works
 
@@ -48,14 +50,18 @@ outcomes ─► observed weather ─► hindsight re-run ─► scoreboard   scr
 - **Rules.** Field work: workable now and no rain day within 48 h. Harvest: a run of dry days. Planting: an onset-of-rains total, no heavy-rain day, no long dry spell. Mine: days to the first day above the rain threshold.
 - **Confidence** is a rule output (horizon length, estimated vs. stated rain, failed purchases), not a model opinion.
 - **No invented data.** If a purchase fails, the app says so and lowers confidence. If a miner gives no rainfall amount, rain is estimated from probability and flagged.
-- **Correctness.** A decision is judged correct if the same engine, fed the weather that actually happened, reaches the same verdict.
+- **Verdict held with hindsight weather.** After the outcome date, the same engine is fed the weather that actually happened; if it reaches the same verdict, the verdict *held*. That checks the forecast-to-verdict chain. It is not a field trial and is not a claim of agronomic accuracy.
+- **Rain quality.** Each day's rain is tagged *stated* (a miner gave the amount for that day), *spread* (a multi-day total divided evenly), *estimated* (probability × 10 mm) or *inconsistent* (a longer window reported less rain than a shorter one; never used silently). Decisions show an "estimated rain" badge, and a planting or harvest GO that rests on non-stated rain is capped at low confidence.
+- **Horizon.** Planting needs a 7-day dry-spell check, but forecasts reach 5 days; planting verdicts say the later dry-spell risk is not assessed, with low confidence.
+- **Units.** Soil water is millimetres of water in the top 30 cm. Workability is simplified to a share of field capacity (in clays it really depends on the plastic limit). Evaporation is a fixed default per site, from 1 mm/day (Iowa winter) to 7 mm/day (Kalgoorlie).
+- **Rules versions.** Decisions made before Nov 25 used rules v1 and are re-run under v1, so they still reproduce exactly; new decisions carry `rules_version: 2` and config `0.2.0-placeholder`.
 
 ## Telegraph integration
 
 | Intent | Use | Status |
 |---|---|---|
 | `WEATHER_FORECAST_GENERAL` | Core input: rain, rain probability, temperatures by window | Live; 28 miners on testnet |
-| `WEATHER_CHECK_*` | Observed weather for scoring | Not used yet; scoring uses Open-Meteo, labelled as not bought through Telegraph |
+| `WEATHER_CHECK_*` | Observed weather for scoring | Not used yet; scoring uses [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0, attribution given; production use needs a suitable plan or another source), labelled as not bought through Telegraph |
 
 Findings for the network (also shared with the bounties repository):
 - The forecast intent's schema has no rainfall amount field (`precipitation_mm`); several miners put it in the answer text. Decisions about soil need mm, so a structured field would make this intent far more useful to agriculture apps.

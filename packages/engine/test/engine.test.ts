@@ -68,3 +68,45 @@ describe("rules", () => {
     expect(JSON.stringify(decide(i))).toBe(JSON.stringify(decide(i)));
   });
 });
+
+describe("v2 rules (review fixes, Nov 25)", () => {
+  const plantDays = (mm: (number | null)[], q?: string[]) => mm.map((rain_mm, i) => ({ date: `2026-12-0${i + 1}`, rain_mm, pop_pct: rain_mm === null ? 30 : null, rain_quality: (q?.[i] ?? (rain_mm === null ? "estimated" : "stated")) as any }));
+
+  it("planting: a 5-day horizon cannot check the 7-day dry spell, so confidence is low and the limit is stated", () => {
+    const r = decide({ activity: "plant", soil: "sandy_loam", initial_storage_frac: 0.7, rules_version: 2, days: plantDays([8, 8, 8, 3, 3]) });
+    expect(r.flags).toContain("horizon_too_short_for_dry_spell");
+    expect(r.confidence).toBe("low");
+    expect(r.reasons.join(" ")).toMatch(/Dry-spell risk beyond day 5 not assessed/);
+  });
+
+  it("harvest GO built on estimated rain is never confident", () => {
+    const r = decide({ activity: "harvest", soil: "loam", rules_version: 2, days: plantDays([null, null, null, null, null]).map((d) => ({ ...d, pop_pct: 0 })) });
+    expect(r.verdict).toBe("GO");
+    expect(r.confidence).toBe("low");
+    expect(r.reasons.join(" ")).toMatch(/provisional/);
+  });
+
+  it("harvest GO on stated rain keeps its confidence", () => {
+    const r = decide({ activity: "harvest", soil: "loam", rules_version: 2, days: plantDays([0, 0, 0, 0, 0]) });
+    expect(r).toMatchObject({ verdict: "GO", confidence: "high" });
+  });
+
+  it("spread rain is flagged", () => {
+    const r = decide({ activity: "field_work", soil: "sand", rules_version: 2, days: plantDays([0, 0, 0, 1, 1], ["stated", "stated", "stated", "spread", "spread"]) });
+    expect(r.flags).toContain("rain_spread_evenly");
+  });
+
+  it("site evaporation changes drying speed", () => {
+    const base = { activity: "field_work" as const, soil: "clay" as const, rules_version: 2, days: plantDays([0, 0, 0, 0, 0]) };
+    const hot = decide({ ...base, et_mm_day: 7 }), cold = decide({ ...base, et_mm_day: 1 });
+    expect(hot.path[4].storage_mm).toBeLessThan(cold.path[4].storage_mm);
+  });
+
+  it("v1 inputs keep v1 behaviour (old records reproduce)", () => {
+    const days = [{ date: "2026-12-01", pop_pct: 0 }, { date: "2026-12-02", pop_pct: 0 }, { date: "2026-12-03", pop_pct: 0 }];
+    const r = decide({ activity: "harvest", soil: "loam", days });
+    expect(r.config_version).toBe("0.1.0-placeholder");
+    expect(r.reasons.join(" ")).not.toMatch(/provisional/);
+    expect(r.path[0]).not.toHaveProperty("quality");
+  });
+});

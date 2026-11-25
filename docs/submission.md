@@ -24,7 +24,7 @@ Fill the bracketed items before posting. Check the rules page for the exact form
 
 ### Update 3 (Nov 30)
 
-> Workable is submitted to @Telegraphprotoc Season II. Scoreboard: [X/Y] decisions correct against observed weather, cost per correct decision $[Z], error by horizon published, sample size stated. Tutorial: "Buy a weather forecast with Telegraph in 10 minutes". Limits: placeholder soil parameters, small sample, testnet.
+> Workable is submitted to @Telegraphprotoc Season II. Scoreboard: [X/Y] verdicts held with hindsight weather, cost per verdict that held $[Z], error by horizon published, sample size stated. Tutorial: "Buy a weather forecast with Telegraph in 10 minutes". Limits: placeholder soil parameters, small sample, testnet.
 >
 > https://workable-telegraph.vercel.app https://github.com/victorhez/workable · Hackathon entry with prizes.
 
@@ -33,7 +33,7 @@ Fill the bracketed items before posting. Check the rules page for the exact form
 - **0:00** The problem: "12 mm tomorrow" does not tell a farmer whether clay will be workable on Thursday.
 - **0:25** Pick Ibadan, field work, sandy loam. Press Decide in **Live** mode. The agent buys 4 forecast windows through Telegraph; show receipts and the $0.04 cost line.
 - **1:10** The decision card: verdict, reasons, what would change it, the soil-water chart, the Pidgin message, WhatsApp share.
-- **1:50** Scoreboard: forecast vs. observed, error by horizon, cost per correct decision, sample size.
+- **1:50** Scoreboard: forecast vs. observed, error by horizon, verdicts that held with hindsight weather (say plainly: this is not a field trial), cost per verdict that held, sample size.
 - **2:30** Terminal: `npm run reproduce -- --all` shows IDENTICAL; `npm test` passes. Switch to the mine preset (days to impact).
 - **3:15** Limits (placeholder parameters, small sample, testnet) and what is next.
 
@@ -42,7 +42,8 @@ Fill the bracketed items before posting. Check the rules page for the exact form
 - **Problem.** Rain forecasts are everywhere; decisions are not. Mistimed planting, spraying or harvest wastes seed, labour and days, and nobody checks how good the advice was.
 - **Who pays.** Agro-dealers, cooperatives and extension services that need logged, defensible advice for many farmers; commercial farms; mine and quarry operators planning around rain delays; other agents through an API.
 - **Pricing.** Per decision: intelligence cost (about $0.04 on testnet) plus margin. Subscription for sites that need a daily watch and alerts.
-- **Cost basis.** The scoreboard publishes intelligence cost per decision and per correct decision, so pricing rests on measured numbers.
+- **Cost basis.** The scoreboard publishes intelligence cost per decision and per verdict that held with hindsight weather, so pricing rests on measured numbers.
+- **Data licence.** Observed weather for scoring comes from Open-Meteo (CC BY 4.0); production use needs a paid plan or another source, ideally an observed-weather intent bought through Telegraph.
 - **Why Telegraph.** Pay-per-answer intelligence from ranked providers, with receipts, suits low-volume, high-stakes rain decisions; better weather miners make Workable better without code changes.
 - **Growth.** More regions and crops, more intents (observed weather, seasonal outlook, growing degree days) as miners appear, an MCP tool so other agents can buy Workable decisions.
 

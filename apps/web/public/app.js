@@ -27,10 +27,15 @@ const I = {
 let SERVER = null;
 async function detect() {
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  if (local) try { const r = await fetch("api/health"); if (r.ok) { const j = await r.json(); if (j.server) SERVER = j; } } catch {}
+  if (local) try { const r = await fetch("/api/health"); if (r.ok) { const j = await r.json(); if (j.server) SERVER = j; } } catch {}
   const pill = $("#netpill");
-  if (SERVER?.live) { pill.textContent = "● Live purchasing on"; pill.className = "netpill live"; }
-  else { pill.textContent = "● Demo: recorded receipts"; pill.className = "netpill demo"; }
+  let st = null; try { st = await get("/api/stats", "/data/stats.json"); } catch {}
+  const bal = st?.escrow_usd;
+  const low = bal != null && bal < 0.3;
+  if (low) { pill.textContent = "● Funds low"; pill.className = "netpill low"; }
+  else if (SERVER?.live) { pill.textContent = "● Connected · live purchasing"; pill.className = "netpill live"; }
+  else { pill.textContent = "● Demo · recorded receipts"; pill.className = "netpill demo"; }
+  if (st) $("#netinfo").innerHTML = `Agent escrow <b>${bal != null ? money(bal) : "–"}</b>${st.escrow_checked_at ? ` (as of ${esc(when(st.escrow_checked_at).slice(5, 10))})` : ""}<br>Total spent <b>${money(st.spend_usd)}</b> on ${st.purchases} purchases`;
 }
 async function get(apiPath, staticPath) {
   const r = await fetch(SERVER ? apiPath : staticPath);
@@ -44,7 +49,7 @@ const save = () => { try { localStorage.setItem("workable", JSON.stringify(STATE
 
 // ---------- Overview ----------
 async function viewOverview() {
-  const [stats, list] = await Promise.all([get("api/stats", "data/stats.json"), get("api/decisions", "data/decisions.json")]);
+  const [stats, list] = await Promise.all([get("/api/stats", "/data/stats.json"), get("/api/decisions", "/data/decisions.json")]);
   const latest = list.find((d) => d.mode === "live") || list[0];
   const v = stats.verdicts || {};
   const total = (v.GO || 0) + (v.WAIT || 0) + (v.AVOID || 0);
@@ -113,7 +118,7 @@ async function viewOverview() {
     <div class="grid g4">
       ${feat(I.receipt, "a", "Receipts", "What was bought, from which miner, at what price, with the on-chain hash.", true)}
       ${feat(I.code, "b", "Rules in code", "The soil model and thresholds are open and versioned. No AI makes up a number.", true)}
-      ${feat(I.target, "c", "Scored on reality", "Forecast error by horizon and cost per correct decision, sample size stated.", true)}
+      ${feat(I.target, "c", "Scored on reality", "Forecast error by horizon and whether each verdict held with the weather that actually came, sample size stated.", true)}
       ${feat(I.repeat, "d", "Reproducible", "Any decision re-runs from its stored inputs and must give the same answer.", true)}
     </div>
   </div>`;
@@ -142,7 +147,7 @@ function decisionsTable(list) {
 
 // ---------- Decide ----------
 async function viewDecide() {
-  const [sites, config] = await Promise.all([get("api/sites", "data/sites.json"), get("api/config", "data/config.json")]);
+  const [sites, config] = await Promise.all([get("/api/sites", "/data/sites.json"), get("/api/config", "/data/config.json")]);
   if (!STATE.site || !sites.find((s) => s.id === STATE.site)) STATE.site = (sites.find((s) => s.demo) || sites[0]).id;
   const site = sites.find((s) => s.id === STATE.site);
   STATE.soil ??= site.soil;
@@ -162,7 +167,7 @@ async function viewDecide() {
         </div>
         <div class="thresholds">
           <div><b>${soil.fc_mm} mm</b>field capacity</div><div><b>≤ ${Math.round(soil.workable_frac * soil.fc_mm)} mm</b>workable below</div>
-          <div><b>${Math.round(soil.drain_frac * 100)}%/day</b>excess drains</div><div><b>${config.rules.et_mm_day} mm/day</b>evaporation</div>
+          <div><b>${Math.round(soil.drain_frac * 100)}%/day</b>excess drains</div><div><b>${site.et_mm_day ?? config.rules.et_mm_day} mm/day</b>evaporation (site default)</div>
         </div>
         <p class="muted small">Config ${esc(config.version)}, placeholder values. <a href="#/method">See all rules</a></p>
         <label>Mode</label>
@@ -191,7 +196,7 @@ async function runDecide(site, config) {
   try {
     let rec;
     if (SERVER) {
-      const r = await fetch("api/decide", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ location: site.location, site_id: site.id, activity: STATE.activity, soil: STATE.soil, initial_storage_frac: STATE.s0, mode: STATE.mode }) });
+      const r = await fetch("/api/decide", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ location: site.location, site_id: site.id, activity: STATE.activity, soil: STATE.soil, initial_storage_frac: STATE.s0, mode: STATE.mode }) });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || "Decide failed");
       rec = j.record;
@@ -205,10 +210,10 @@ async function runDecide(site, config) {
 
 async function decideInBrowser(site) {
   if (!window.Workable) throw new Error("Engine bundle missing. Run npm run build.");
-  const all = await get(null, "data/demo-forecasts.json");
+  const all = await get(null, "/data/demo-forecasts.json");
   const forecast = all[slug(site.location)];
   if (!forecast) throw new Error(`No recorded forecast for ${site.location} yet.`);
-  const input = { activity: STATE.activity, soil: STATE.soil, initial_storage_frac: STATE.s0, failed_windows: forecast.windows.filter((w) => !w.parsed).length, days: forecast.days.map((d) => ({ date: d.date, rain_mm: d.rain_mm, pop_pct: d.pop_pct, tmax_c: d.tmax_c, tmin_c: d.tmin_c })) };
+  const input = { activity: STATE.activity, soil: STATE.soil, initial_storage_frac: STATE.s0, failed_windows: forecast.windows.filter((w) => !w.parsed).length, et_mm_day: site.et_mm_day, rules_version: 2, days: forecast.days.map((d) => ({ date: d.date, rain_mm: d.rain_mm, pop_pct: d.pop_pct, tmax_c: d.tmax_c, tmin_c: d.tmin_c, rain_quality: d.rain_quality ?? (d.rain_mm === null ? "estimated" : /spread/.test(d.derived || "") ? "spread" : "stated") })) };
   const decision = window.Workable.decide(input);
   return { id: "browser-demo", created_at: new Date().toISOString(), site: { location: site.location }, input, decision, forecast, cost_usd: forecast.cost_usd, mode: "demo", outcome_date: forecast.days.at(-1)?.date };
 }
@@ -244,7 +249,7 @@ function decisionHTML(rec, config) {
   <div class="verdict ${d.verdict}">
     <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start">
       <div><div class="big">${esc(head)}</div><div class="muted" style="margin-top:6px">${esc(ACTS[rec.input.activity])} · ${esc(rec.site.location)} · ${esc(SOIL_NAMES[rec.input.soil])}</div></div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill soft">confidence ${esc(d.confidence)}</span><span class="pill ${rec.mode}">${rec.mode === "live" ? "live purchase" : "recorded receipts"}</span></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill soft">confidence ${esc(d.confidence)}</span>${d.flags.some((f) => /estimated|spread|inconsistent/.test(f)) ? `<span class="pill WAIT" title="Some daily rain amounts were estimated from probability or spread from a multi-day total">estimated rain</span>` : ""}<span class="pill ${rec.mode}">${rec.mode === "live" ? "live purchase" : "recorded receipts"}</span></div>
     </div>
     <ul class="reasons">${d.reasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>
     <div><b>What would change it:</b> ${esc(d.would_change)}</div>
@@ -279,7 +284,7 @@ function wireShare() {
 
 // ---------- Decision page ----------
 async function viewDecision(id) {
-  const [rec, config] = await Promise.all([get(`api/decision/${id}`, `data/decision/${id}.json`), get("api/config", "data/config.json")]);
+  const [rec, config] = await Promise.all([get(`/api/decision/${id}`, `/data/decision/${id}.json`), get("/api/config", "/data/config.json")]);
   app.innerHTML = `<div class="page-head"><div><h1>Decision ${esc(rec.id)}</h1>
     <p class="sub">${esc(when(rec.created_at))} UTC · judged after ${esc(rec.outcome_date)}</p></div>
     <span class="pill ${rec.reproduced ? "GO" : "AVOID"}">${rec.reproduced ? "✓ Reproduced exactly from stored inputs" : "✗ Re-run differs"}</span></div>
@@ -289,7 +294,7 @@ async function viewDecision(id) {
 
 // ---------- Decisions list ----------
 async function viewDecisions() {
-  const list = await get("api/decisions", "data/decisions.json");
+  const list = await get("/api/decisions", "/data/decisions.json");
   app.innerHTML = `<div class="page-head"><div><h1>Decisions</h1><p class="sub">Every decision is stored with its inputs and receipts, can be re-run exactly, and is judged against observed weather after its outcome date.</p></div>
     <a class="btn btn-accent" href="#/decide">New decision ${I.arrow}</a></div>
     <div class="card">${decisionsTable(list)}</div>`;
@@ -297,16 +302,16 @@ async function viewDecisions() {
 
 // ---------- Scoreboard ----------
 async function viewScoreboard() {
-  const b = await get("api/scoreboard", "data/scoreboard.json");
+  const b = await get("/api/scoreboard", "/data/scoreboard.json");
   const head = `<div class="page-head"><div><h1>Scoreboard</h1><p class="sub">Forecasts and decisions versus what actually happened. Advice that isn't checked isn't worth paying for.</p></div></div>`;
   if (!b) { app.innerHTML = head + `<div class="card empty">${I.target}<div>No outcomes scored yet.<br>Run <code>npm run outcomes</code> after the first forecast windows close.</div></div>`; return; }
   const s = b.summary;
   app.innerHTML = head + `
   ${s.sample_size_note ? `<div class="note">${esc(s.sample_size_note)}</div>` : ""}
   <div class="grid g4 mt">
-    ${kpi("Decisions judged correct", `${s.decisions_correct}/${s.decisions_judged}`, s.accuracy != null ? `${Math.round(s.accuracy * 100)}% accuracy` : `${s.decisions_pending} awaiting their outcome date`, I.target, "b")}
-    ${kpi("Cost per correct decision", s.cost_per_correct_decision_usd != null ? "$" + s.cost_per_correct_decision_usd : "–", "intelligence spend ÷ correct calls", I.coin, "a")}
-    ${kpi("Cost per useful alert", s.cost_per_useful_alert_usd != null ? "$" + s.cost_per_useful_alert_usd : "–", "WAIT/AVOID calls that held", I.receipt, "c")}
+    ${kpi("Verdict held with hindsight weather", `${s.decisions_correct}/${s.decisions_judged}`, s.accuracy != null ? `${Math.round(s.accuracy * 100)}% of ${s.decisions_judged} judged · ${s.decisions_pending} pending` : `${s.decisions_pending} awaiting their outcome date`, I.target, "b")}
+    ${kpi("Cost per verdict that held", s.cost_per_correct_decision_usd != null ? "$" + s.cost_per_correct_decision_usd : "–", `intelligence spend ÷ verdicts that held (n=${s.decisions_correct})`, I.coin, "a")}
+    ${kpi("Cost per useful alert", s.cost_per_useful_alert_usd != null ? "$" + s.cost_per_useful_alert_usd : "–", "WAIT/AVOID verdicts that held", I.receipt, "c")}
     ${kpi("Hours of warning", s.median_hours_of_warning != null ? s.median_hours_of_warning + " h" : "–", "median, before observed rain", I.cloud, "d")}
   </div>
   <div class="grid g2 mt2">
@@ -315,25 +320,26 @@ async function viewScoreboard() {
       ${Object.entries(b.by_horizon).map(([h, v]) => `<tr><td><b>${h}</b></td><td>${v.samples} (${v.rain_call_samples} calls)</td><td>${v.mean_abs_error_mm ?? "–"} mm</td><td>${v.rain_no_rain_hit_rate != null ? Math.round(v.rain_no_rain_hit_rate * 100) + "%" : "–"}</td></tr>`).join("") || `<tr><td colspan="4" class="muted">No closed forecast windows yet.</td></tr>`}
       </tbody></table></div></div>
     <div class="card"><div class="card-head"><h2>Judged decisions</h2></div>
-      <div class="scroll"><table><thead><tr><th>Decision</th><th>Site</th><th>Said</th><th>With hindsight</th><th></th></tr></thead><tbody>
+      <div class="scroll"><table><thead><tr><th>Decision</th><th>Site</th><th>Said</th><th>With hindsight</th><th>Held?</th></tr></thead><tbody>
       ${b.judged.map((j) => `<tr><td><a href="#/d/${j.id}">${j.id}</a></td><td>${esc(j.location)}</td><td><span class="pill ${j.verdict}">${j.verdict}</span></td><td><span class="pill ${j.hindsight_verdict}">${j.hindsight_verdict}</span></td><td>${j.correct ? "✓" : "✗"}</td></tr>`).join("") || `<tr><td colspan="5" class="muted">None past their outcome date yet.</td></tr>`}
       </tbody></table></div></div>
   </div>
-  <p class="muted small mt">Updated ${esc(when(b.generated_at))} UTC. Observed weather: ${esc(b.observed_source)}. A decision is correct when the same engine, fed the weather that actually happened, reaches the same verdict.</p>`;
+  <p class="muted small mt">Updated ${esc(when(b.generated_at))} UTC. Observed weather: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Weather data by Open-Meteo.com</a> (CC BY 4.0), not bought through Telegraph. "Held" means the same engine, fed the weather that actually happened, reaches the same verdict. That checks the forecast-to-verdict chain; it is not a measure of agronomic accuracy in the field.</p>`;
 }
 
 // ---------- Method ----------
 async function viewMethod() {
-  const c = await get("api/config", "data/config.json");
+  const c = await get("/api/config", "/data/config.json");
   app.innerHTML = `<div class="page-head"><div><h1>Method &amp; limits</h1><p class="sub">Rules in code, nothing guessed by a language model. Config <code>${esc(c.version)}</code>; all values are placeholders pending soil-science review.</p></div></div>
   <div class="grid g2">
     ${[["Buy", `The agent buys <code>WEATHER_FORECAST_GENERAL</code> through Telegraph for 24h, 48h, 72h and 120h windows, without a human approving each purchase. Each answer is stored with its cost, miner and on-chain receipt hash.`],
       ["Daily rain", `Daily amounts are the differences between windows; a multi-day window total is spread evenly. If a miner gives no amount, rain is estimated as probability × ${c.rules.rain_if_wet_mm} mm and flagged.`],
-      ["Soil bucket", `Each day: storage + rain − evaporation (${c.rules.et_mm_day} mm); a share of any excess above field capacity drains; storage stays between 0 and saturation.`],
+      ["Soil bucket", `Each day: storage + rain − evaporation; a share of any excess above field capacity drains; storage stays between 0 and saturation. Evaporation is a fixed daily default per site (1 mm in an Iowa winter up to 7 mm in arid Kalgoorlie; ${c.rules.et_mm_day} mm if unset). That is a simplification: it does not yet follow forecast temperatures.`],
       ["Rules", `Field work: workable and no day ≥ ${c.rules.wet_day_mm} mm within ${c.rules.fieldwork_dry_hours} h. Harvest: ${c.rules.harvest_dry_run_days} dry days in a row. Planting: ≥ ${c.rules.plant_onset_mm} mm over ${c.rules.plant_onset_days} days, no ≥ ${c.rules.heavy_rain_mm} mm day, no ${c.rules.plant_dry_spell_days}-day dry spell. Mine: days to the first day above ${c.rules.mine_threshold_mm} mm.`]]
       .map(([t, p], i) => `<div class="card step"><div class="step-n">${i + 1}</div><h3>${t}</h3><p>${p}</p></div>`).join("")}
   </div>
-  <div class="card mt2"><div class="card-head"><h2>Soil profiles</h2></div>
+  <div class="card mt2"><div class="card-head"><h2>Soil profiles</h2><span class="pill soft">mm of water in the top ${c.depth_cm ?? 30} cm</span></div>
+  <p class="muted small" style="margin-top:0">Workable is modelled as soil water at or below a share of field capacity. That is a simplification: workability, especially in clays, really depends on moisture relative to the plastic limit. Values are placeholders to be checked against standard available-water-capacity tables (FAO-56 / USDA texture classes); the source will be cited here when the review is done and the config version loses "placeholder".</p>
   <div class="scroll"><table><thead><tr><th>Soil</th><th>Field capacity</th><th>Saturation</th><th>Drains per day</th><th>Workable at or below</th></tr></thead><tbody>
   ${Object.entries(c.soils).map(([k, s]) => `<tr><td><b>${SOIL_NAMES[k]}</b></td><td>${s.fc_mm} mm</td><td>${s.sat_mm} mm</td><td>${Math.round(s.drain_frac * 100)}% of excess</td><td>${Math.round(s.workable_frac * 100)}% of FC (${Math.round(s.workable_frac * s.fc_mm)} mm)</td></tr>`).join("")}
   </tbody></table></div></div>
@@ -341,7 +347,9 @@ async function viewMethod() {
     <li>Parameters are placeholders and not yet field-validated. Not agronomic advice.</li>
     <li>The forecast intent does not formally return rainfall in mm; when miners include it in text, it is extracted and labelled.</li>
     <li>Telegraph testnet purchases can be slow or fail; failures are shown and lower confidence, never filled in.</li>
-    <li>Observed weather for scoring comes from Open-Meteo, not from Telegraph.</li>
+    <li>Observed weather for scoring comes from Open-Meteo (CC BY 4.0, attribution required; production use needs a suitable plan or another source), not from Telegraph.</li>
+    <li>The scoreboard checks whether a verdict <i>held with hindsight weather</i> (same engine, actual weather, same verdict). It is not a field trial and makes no claim of agronomic accuracy.</li>
+    <li>Planting needs a 7-day dry-spell check but forecasts reach 5 days, so planting verdicts state that the later dry-spell risk is not assessed, with low confidence.</li>
     <li>Small samples so far; the scoreboard always states its sample size.</li>
   </ul></div>`;
 }
@@ -349,7 +357,7 @@ async function viewMethod() {
 // ---------- Router ----------
 const TITLES = { overview: "Overview", decide: "Decide", decisions: "Decisions", scoreboard: "Scoreboard", method: "Method & limits" };
 async function route() {
-  const h = location.hash.slice(1) || "/";
+  const h = location.hash.slice(1) || (location.pathname.startsWith("/d/") ? location.pathname : "/");
   const nav = h.startsWith("/scoreboard") ? "scoreboard" : h.startsWith("/decisions") || h.startsWith("/d/") ? "decisions" : h.startsWith("/method") ? "method" : h.startsWith("/decide") ? "decide" : "overview";
   document.querySelectorAll("[data-nav]").forEach((a) => a.classList.toggle("on", a.dataset.nav === nav));
   $("#crumbs").textContent = "Workable  /  " + TITLES[nav];

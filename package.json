@@ -14,7 +14,8 @@
     "reproduce": "tsx scripts/reproduce.ts",
     "outcomes": "tsx scripts/outcomes.ts",
     "serve": "tsx --env-file-if-exists=.env apps/web/server.ts",
-    "build": "tsx scripts/build-site.ts"
+    "build": "tsx scripts/build-site.ts",
+    "daily": "tsx --env-file-if-exists=.env scripts/daily-decisions.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
