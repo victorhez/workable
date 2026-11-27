@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T14:25:50.001Z",
+  "generated_at": "2026-11-27T14:21:37.533Z",
   "observed_source": "Open-Meteo (open-meteo.com, CC BY 4.0) recent analysis; not bought through Telegraph",
   "summary": {
     "decisions_total": 8,
@@ -10,8 +10,8 @@
     "cost_per_correct_decision_usd": 0.01,
     "cost_per_useful_alert_usd": 0.01,
     "median_hours_of_warning": null,
-    "forecast_windows_scored": 10,
-    "sample_size_note": "Small sample (1 judged decisions, 10 forecast windows). Treat these numbers as early indications, not proof."
+    "forecast_windows_scored": 16,
+    "sample_size_note": "Small sample (1 judged decisions, 16 forecast windows). Treat these numbers as early indications, not proof."
   },
   "by_horizon": {
     "24h": {
@@ -25,6 +25,12 @@
       "mean_abs_error_mm": 0.1,
       "rain_no_rain_hit_rate": 0.8,
       "rain_call_samples": 5
+    },
+    "72h": {
+      "samples": 2,
+      "mean_abs_error_mm": 0.4,
+      "rain_no_rain_hit_rate": 0.5,
+      "rain_call_samples": 6
     }
   },
   "judged": [
@@ -62,12 +68,30 @@
     {
       "location": "Ibadan, Nigeria",
       "start": "2026-11-24",
+      "window_hours": 72,
+      "forecast_mm": null,
+      "forecast_pop": 2,
+      "observed_mm": 2.3,
+      "rain_call_correct": false
+    },
+    {
+      "location": "Ibadan, Nigeria",
+      "start": "2026-11-24",
       "window_hours": 24,
       "forecast_mm": 0,
       "forecast_pop": 2,
       "observed_mm": 0,
       "abs_err_mm": 0,
       "rain_call_correct": true
+    },
+    {
+      "location": "Ibadan, Nigeria",
+      "start": "2026-11-24",
+      "window_hours": 72,
+      "forecast_mm": null,
+      "forecast_pop": 0,
+      "observed_mm": 2.3,
+      "rain_call_correct": false
     },
     {
       "location": "Kano, Nigeria",
@@ -82,6 +106,16 @@
       "location": "Kano, Nigeria",
       "start": "2026-11-24",
       "window_hours": 48,
+      "forecast_mm": 0,
+      "forecast_pop": 0,
+      "observed_mm": 0,
+      "abs_err_mm": 0,
+      "rain_call_correct": true
+    },
+    {
+      "location": "Kano, Nigeria",
+      "start": "2026-11-24",
+      "window_hours": 72,
       "forecast_mm": 0,
       "forecast_pop": 0,
       "observed_mm": 0,
@@ -108,11 +142,30 @@
       "rain_call_correct": true
     },
     {
+      "location": "Mendoza, Argentina",
+      "start": "2026-11-24",
+      "window_hours": 72,
+      "forecast_mm": 0.1,
+      "forecast_pop": 19,
+      "observed_mm": 0.9,
+      "abs_err_mm": 0.8,
+      "rain_call_correct": true
+    },
+    {
       "location": "Ames, Iowa, USA",
       "start": "2026-11-24",
       "window_hours": 48,
       "forecast_mm": null,
       "forecast_pop": 2,
+      "observed_mm": 0,
+      "rain_call_correct": true
+    },
+    {
+      "location": "Ames, Iowa, USA",
+      "start": "2026-11-24",
+      "window_hours": 72,
+      "forecast_mm": null,
+      "forecast_pop": 0,
       "observed_mm": 0,
       "rain_call_correct": true
     },
@@ -132,6 +185,15 @@
       "forecast_mm": null,
       "forecast_pop": 49,
       "observed_mm": 10.7,
+      "rain_call_correct": false
+    },
+    {
+      "location": "Nairobi, Kenya",
+      "start": "2026-11-24",
+      "window_hours": 72,
+      "forecast_mm": null,
+      "forecast_pop": 49,
+      "observed_mm": 11.6,
       "rain_call_correct": false
     }
   ]
